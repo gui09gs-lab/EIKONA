@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Eikóna · Marketing e Comunicação</title>
+<meta name="description" content="Sites, fotografia e gestão de Instagram para empresas de SP, da conversa inicial à publicação, sem complicação.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Eikóna Marketing e Comunicação">
+<meta property="og:title" content="Eikóna · Sites, fotografia e Instagram para empresas de SP">
+<meta property="og:description" content="Cases, apresentação por segmento e diagnóstico digital gratuito.">
+<meta property="og:image" content="https://gui09gs-lab.github.io/EIKONA/thumb.jpg">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Ccircle cx=%2232%22 cy=%2232%22 r=%2227%22 fill=%22none%22 stroke=%22%232A1D16%22 stroke-width=%226%22/%3E%3Cpath d=%22M14 32h36%22 stroke=%22%232A1D16%22 stroke-width=%226%22/%3E%3Ccircle cx=%2232%22 cy=%2232%22 r=%227%22 fill=%22%231F5C8F%22/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap">
+<style>
+/* Layout: cabeçalho claro com a lente; cada vista (início, segmento, diagnóstico) em faixas alternadas de mármore e marrom-escuro, cases em quadro de navegador + celular. Peça da marca: tema único, claro. */
+:root {
+  --marmore: #F3EFE9; --marmore-claro: #FBF9F6; --areia: #E8E0D5; --veio: #D8CFC4;
+  --tinta: #2A1D16; --tinta-suave: #6A5A4D; --terra: #6E4530; --terra-escura: #2A1D16;
+  --sobre-escuro: #F3EFE9; --sobre-escuro-suave: #C9BCAF; --egeu: #1F5C8F; --egeu-claro: #7FB3DF; --egeu-suave: #E1EBF4;
+  --alerta: #9A3520; --alerta-suave: #F4DFD6;
+  --fonte: "Space Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { margin: 0; background: var(--marmore); color: var(--tinta); font: 16px/1.6 var(--fonte); }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--marmore-claro); }
+a { color: var(--egeu); }
+:focus-visible { outline: 2px solid var(--egeu); outline-offset: 2px; }
+.gut { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.in { max-width: 1160px; margin: 0 auto; }
+.rot { font-size: 12px; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; color: var(--tinta-suave); }
+h1, h2, h3 { font-weight: 700; letter-spacing: -.04em; line-height: 1.02; margin: 0; text-wrap: balance; }
+h1 { font-size: clamp(40px, 7vw, 76px); }
+h2 { font-size: clamp(30px, 4.4vw, 48px); }
+h3 { font-size: 24px; letter-spacing: -.025em; line-height: 1.15; }
+h1 i, h2 i, h3 i { font-style: normal; color: var(--egeu); }
+.escuro h1 i, .escuro h2 i, .escuro h3 i { color: var(--egeu-claro); }
+p { margin: 0; }
+.lead { font-size: 19px; line-height: 1.55; color: var(--tinta-suave); max-width: 60ch; }
+
+/* cabeçalho */
+.cab { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--marmore-claro); border-bottom: 1px solid var(--veio); }
+.cab .in { display: flex; align-items: center; gap: 12px 24px; flex-wrap: wrap; padding-block: 12px; }
+.marca { display: flex; align-items: center; gap: 10px; color: var(--tinta); text-decoration: none; }
+.lente { width: 32px; height: 32px; flex: none; }
+.marca b { font-size: 23px; letter-spacing: -.045em; line-height: 1; }
+.marca b i { font-style: normal; color: var(--egeu); }
+.marca small { display: block; font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--terra); font-weight: 500; margin-top: 2px; }
+.nav { display: flex; gap: 2px 4px; flex-wrap: wrap; margin-left: auto; }
+.nav a { color: var(--tinta-suave); text-decoration: none; font-weight: 500; font-size: 14px; padding: 6px 10px; border-radius: 4px; }
+.nav a:hover { background: var(--areia); color: var(--tinta); }
+.nav a[aria-current="page"] { background: var(--terra); color: var(--marmore-claro); }
+.btn { display: inline-flex; align-items: center; gap: 8px; border-radius: 4px; padding: 12px 18px; font-weight: 500; text-decoration: none; border: 1px solid transparent; font-size: 15px; }
+.btn.pri { background: var(--terra); color: var(--marmore-claro); }
+.btn.pri:hover { filter: brightness(1.1); }
+.btn.sec { border-color: var(--veio); color: var(--tinta); background: var(--marmore-claro); }
+.escuro .btn.sec { border-color: #5a473b; color: var(--sobre-escuro); background: transparent; }
+
+/* faixas */
+.faixa { padding-block: clamp(48px, 8vw, 96px); position: relative; overflow: hidden; }
+.escuro { background: var(--terra-escura); color: var(--sobre-escuro); }
+.escuro .rot, .escuro .lead, .escuro .suave { color: var(--sobre-escuro-suave); }
+.areia { background: var(--areia); }
+.marca-agua { position: absolute; width: min(70vw, 760px); right: -14%; top: -18%; opacity: .07; pointer-events: none; color: var(--tinta); }
+.escuro .marca-agua { color: var(--sobre-escuro); opacity: .06; }
+.hero .in { display: grid; gap: 22px; position: relative; }
+.hero .acoes { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 6px; }
+.cab-sec { display: grid; gap: 12px; margin-bottom: 36px; max-width: 760px; }
+
+/* segmentos */
+.segs { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 0; border-top: 1px solid var(--veio); }
+.seg { padding: 22px 22px 22px 0; display: flex; flex-direction: column; gap: 8px; text-decoration: none; color: inherit; border-bottom: 1px solid var(--veio); }
+.seg + .seg { padding-left: 22px; border-left: 1px solid var(--veio); }
+.seg:hover h3 { color: var(--terra); }
+.seg p { color: var(--tinta-suave); font-size: 15px; }
+.seg span.ir { margin-top: auto; color: var(--egeu); font-weight: 500; font-size: 14px; }
+@media (max-width: 560px) { .seg + .seg { border-left: 0; padding-left: 0; } }
+
+/* cases */
+.cases { display: grid; gap: clamp(40px, 6vw, 72px); }
+.case { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 56px); align-items: center; }
+.case:nth-child(even) .mock { order: 2; }
+@media (max-width: 820px) { .case { grid-template-columns: minmax(0, 1fr); } .case:nth-child(even) .mock { order: 0; } }
+.case-txt { display: grid; gap: 12px; }
+.case-txt p { color: var(--sobre-escuro-suave); }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { font-size: 12px; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; border: 1px solid #5a473b; color: var(--sobre-escuro); }
+.claro .chip { border-color: var(--veio); color: var(--tinta-suave); }
+.mock { position: relative; padding: 0 48px 28px 0; }
+.navegador { background: #FBF9F6; border-radius: 4px; overflow: hidden; box-shadow: 0 20px 48px #00000059; }
+.navegador .barra { display: flex; gap: 6px; padding: 9px 12px; background: #E8E0D5; }
+.navegador .barra i { width: 10px; height: 10px; border-radius: 50%; background: #C9BCAF; }
+.navegador img { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; }
+.celular { position: absolute; right: 0; bottom: 0; width: 26%; min-width: 96px; border: 6px solid #120c09; border-radius: 22px; overflow: hidden; background: #120c09; box-shadow: 0 14px 32px #00000066; }
+.celular img { display: block; width: 100%; aspect-ratio: 9 / 18.5; object-fit: cover; object-position: top; }
+
+/* agenda (demonstração) */
+.agenda-box { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 340px); gap: clamp(24px, 5vw, 64px); align-items: center; }
+@media (max-width: 760px) { .agenda-box { grid-template-columns: minmax(0, 1fr); } }
+.fone { width: min(100%, 330px); margin: 0 auto; border: 9px solid var(--tinta); border-radius: 34px; background: #FFFFFF; overflow: hidden; box-shadow: 0 24px 50px #2a1d1640; color: #1E1C19; font-size: 13px; }
+.fone .topo { background: var(--terra); color: #FBF9F6; padding: 22px 18px 16px; display: grid; gap: 2px; }
+.fone .topo b { font-size: 20px; letter-spacing: -.02em; line-height: 1.15; overflow-wrap: anywhere; }
+.fone .topo span { font-size: 12px; opacity: .85; }
+.fone .corpo { padding: 14px; display: grid; gap: 12px; }
+.fone .eti { font-size: 10px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: #69635B; }
+.fone .sv { display: flex; justify-content: space-between; gap: 10px; border: 1px solid #E0DBD2; border-radius: 10px; padding: 9px 11px; }
+.fone .sv.on { border-color: var(--terra); background: #F6EEE7; }
+.fone .sv b { font-weight: 500; }
+.fone .sv span { color: #69635B; white-space: nowrap; }
+.fone .dias, .fone .horas { display: flex; gap: 6px; flex-wrap: wrap; }
+.fone .dia { border: 1px solid #E0DBD2; border-radius: 9px; padding: 5px 0; width: 46px; text-align: center; line-height: 1.2; font-size: 11px; color: #69635B; }
+.fone .dia b { display: block; font-size: 16px; color: #1E1C19; }
+.fone .dia.on { background: var(--terra); border-color: var(--terra); color: #FBF9F6; }
+.fone .dia.on b { color: #FBF9F6; }
+.fone .hora { border: 1px solid #E0DBD2; border-radius: 999px; padding: 4px 11px; font-weight: 500; }
+.fone .hora.on { background: var(--terra); color: #FBF9F6; border-color: var(--terra); }
+.fone .ok { background: var(--terra); color: #FBF9F6; border-radius: 999px; text-align: center; padding: 10px; font-weight: 500; }
+.lista-v { display: grid; gap: 14px; padding: 0; margin: 18px 0 0; list-style: none; }
+.lista-v li { display: grid; grid-template-columns: 28px 1fr; gap: 10px; }
+.lista-v li::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--egeu); margin-top: 8px; }
+
+/* processo */
+.passos { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 24px; counter-reset: p; }
+.passo { display: grid; gap: 6px; border-top: 2px solid var(--tinta); padding-top: 14px; }
+.passo .n { font-size: 12px; font-weight: 500; letter-spacing: .16em; color: var(--terra); }
+.passo p { color: var(--tinta-suave); font-size: 15px; }
+
+/* diagnóstico */
+.achados { display: grid; gap: 0; border-top: 1px solid var(--veio); }
+.achado { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 14px; padding: 20px 0; border-bottom: 1px solid var(--veio); }
+.achado .ico { width: 36px; height: 36px; border-radius: 50%; background: var(--alerta-suave); color: var(--alerta); display: grid; place-items: center; font-weight: 700; }
+.achado.leve .ico { background: var(--egeu-suave); color: var(--egeu); }
+.achado h3 { font-size: 21px; margin-bottom: 6px; }
+.achado p { color: var(--tinta-suave); overflow-wrap: anywhere; }
+.solucoes { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin-top: 8px; }
+.sol { background: var(--marmore-claro); border: 1px solid var(--veio); border-radius: 4px; padding: 18px; display: grid; gap: 6px; }
+.sol p { color: var(--tinta-suave); font-size: 15px; }
+.nota { font-size: 13px; color: var(--tinta-suave); }
+.cta { display: grid; gap: 18px; max-width: 720px; }
+.contato { font-size: 14px; color: var(--sobre-escuro-suave); }
+.rodape { padding-block: 28px; font-size: 13px; color: var(--tinta-suave); border-top: 1px solid var(--veio); }
+.rodape .in { display: flex; gap: 8px 20px; flex-wrap: wrap; justify-content: space-between; }
+.carregando { padding: 80px 0; color: var(--tinta-suave); }
+@media (prefers-reduced-motion: no-preference) { .vista { animation: sobe .35s ease-out; } @keyframes sobe { from { opacity: .4; transform: translateY(6px); } } }
+</style>
+
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="lente" viewBox="0 0 64 64"><circle cx="32" cy="32" r="27" fill="none" stroke="currentColor" stroke-width="6"/><path d="M14 32h36" stroke="currentColor" stroke-width="6"/><circle cx="32" cy="32" r="7" fill="#1F5C8F"/></symbol></svg>
+<header class="cab gut"><div class="in">
+  <a class="marca" href="#inicio" aria-label="Eikóna, início"><svg class="lente" style="color:var(--tinta)"><use href="#lente"/></svg><span><b>eikóna<i>.</i></b><small>marketing &amp; comunicação</small></span></a>
+  <nav class="nav" aria-label="Segmentos">
+    <a href="#beleza" data-v="beleza">Salões e estética</a><a href="#saude" data-v="saude">Saúde</a><a href="#comercio" data-v="comercio">Comércio</a><a href="#b2b" data-v="b2b">Empresas B2B</a>
+  </nav>
+</div></header>
+<main id="vista"><div class="gut"><div class="in carregando">Carregando…</div></div></main>
+<footer class="rodape gut"><div class="in"><span>Eikóna Marketing e Comunicação · Grupo Eikóna</span><span>Guilherme Gomes da Silva · (11) 98370-1215 · g.gomes1353@gmail.com · @eikona.mkt</span></div></footer>
+
+<script>
+(() => {
+"use strict";
+const WA = "5511983701215";
+const VERIF = "25/11/2026";
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const wa = t => "https://wa.me/" + WA + "?text=" + encodeURIComponent(t);
+const lente = cls => `<svg class="${cls || ""}" viewBox="0 0 64 64" aria-hidden="true"><use href="#lente"/></svg>`;
+
+const SEG = {
+  beleza: { nome: "Salões e estética", titulo: "Agenda cheia, sem passar o dia respondendo mensagem", lead: "Para salões, esmalterias, barbearias, estúdios de sobrancelha e clínicas de estética. A cliente encontra vocês no Google, vê o trabalho no Instagram e marca sozinha, a qualquer hora.",
+    dores: ["Horários marcados um a um pelo WhatsApp, inclusive à noite e no fim de semana.", "Faltas sem aviso, porque não houve sinal nem lembrete.", "Instagram com bom trabalho, mas sem um padrão que mostre a qualidade.", "Quem procura no Google não encontra um site com serviços e endereço."],
+    entregas: [["Agenda online", "A cliente escolhe serviço, dia e horário, paga o sinal por Pix e recebe a confirmação no WhatsApp."], ["Gestão de Instagram", "Direção de arte, artes, legendas e publicação, para o perfil trazer novas clientes."], ["Fotografia profissional", "Ensaio do espaço, da equipe e dos trabalhos, pronto para usar em todo lugar."]],
+    cases: ["sentinela", "alm"], agenda: true },
+  saude: { nome: "Saúde", titulo: "Pacientes que encontram, confiam e marcam", lead: "Para consultórios, clínicas, dentistas, fisioterapia, psicologia, pilates e academias. Presença séria no Google e agendamento sem fila no telefone.",
+    dores: ["Recepção ocupada confirmando e remarcando consultas.", "Site antigo, que não abre direito no celular, ou nenhum site.", "Faltas sem lembrete na véspera."],
+    entregas: [["Site profissional", "Especialidades, equipe, convênios, localização e botão de WhatsApp, com o Google configurado."], ["Agenda online", "O paciente marca pelo celular e recebe confirmação e lembrete no WhatsApp."], ["Instagram e fotografia", "Conteúdo que explica, gera confiança e mostra o espaço."]],
+    cases: ["sentinela", "santerm"], agenda: true },
+  comercio: { nome: "Comércio e serviços", titulo: "Antes de ir até você, o cliente pesquisa", lead: "Para lojas, oficinas, pet shops, óticas, restaurantes, estúdios e prestadores de serviço. Um site que aparece no Google e leva direto para o WhatsApp.",
+    dores: ["O cliente pesquisa no Google e encontra o concorrente primeiro.", "Site fora do ar ou desatualizado, que passa a impressão de que a empresa fechou.", "Orçamentos perdidos porque o cliente não acha o contato."],
+    entregas: [["Site com orçamento pelo WhatsApp", "Serviços, fotos, localização e um botão que já abre a conversa."], ["Catálogo digital", "Produtos com fotos e pedido direto pelo WhatsApp, sem PDF."], ["Instagram", "Calendário de posts e artes no padrão da marca."]],
+    cases: ["sentinela", "alm"] },
+  b2b: { nome: "Empresas B2B", titulo: "O comprador confere o site antes de pedir orçamento", lead: "Para indústrias, distribuidoras, prestadores de serviço para empresas e escritórios. Site institucional sério e catálogo que o comprador usa sem precisar ligar.",
+    dores: ["Catálogo em PDF desatualizado, que ninguém abre no celular.", "Site antigo que não mostra o porte e a experiência da empresa.", "Pedidos de orçamento que chegam sem as informações necessárias."],
+    entregas: [["Site institucional", "História, linhas de produto, diferenciais e contato comercial, com o Google configurado."], ["Catálogo digital", "Produtos por linha, filtros, lista de orçamento e envio pelo WhatsApp."], ["Fotografia de produto e de fábrica", "Imagens próprias no lugar de banco de imagens."]],
+    cases: ["santerm", "alm", "flysy"] },
+};
+const CASES = {
+  alm: { nome: "ALM Segurança Eletrônica", rot: "Distribuidora B2B", txt: "Distribuidora de produtos para CFTV. O site organiza a linha de produtos em catálogo: o cliente monta a lista e envia o pedido de orçamento pelo WhatsApp.", chips: ["Site", "Catálogo digital", "Orçamento pelo WhatsApp"] },
+  sentinela: { nome: "Sentinela Segurança", rot: "Serviço local", txt: "Câmeras, alarmes e monitoramento para residências. Além do site, um simulador em que o cliente monta o projeto de câmeras antes de pedir a visita técnica.", chips: ["Site", "Simulador de câmeras", "Captação de orçamento"] },
+  flysy: { nome: "Flysy", rot: "Aviação executiva", txt: "Viagens executivas porta a porta. Site com linguagem de alto padrão para um público que decide pela confiança.", chips: ["Site", "Identidade visual"] },
+  santerm: { nome: "Santerm Resistências Elétricas", rot: "Indústria", txt: "Resistências industriais de linha e sob medida. Site com catálogo, calculadora e lista de orçamento, feito para o comprador técnico.", chips: ["Site institucional", "Catálogo", "Calculadora"] },
+};
+const SERV_AG = [
+  [/barbear/i, [["Corte", "40 min"], ["Barba", "30 min"], ["Corte e barba", "1h"]]],
+  [/unha|esmalt|podolog/i, [["Manicure", "45 min"], ["Pedicure", "50 min"], ["Alongamento em gel", "2h"]]],
+  [/sobrancel|c[ií]lio/i, [["Design de sobrancelha", "40 min"], ["Lash lifting", "1h"], ["Extensão de cílios", "2h"]]],
+  [/est[eé]tica|massag|spa|bronze/i, [["Limpeza de pele", "1h"], ["Drenagem", "1h"], ["Massagem relaxante", "1h"]]],
+  [/cabel|sal[aã]o/i, [["Corte", "1h"], ["Escova", "45 min"], ["Coloração", "2h"]]],
+  [/academia|pilates|personal/i, [["Aula experimental", "1h"], ["Avaliação física", "40 min"], ["Plano mensal", "conversa"]]],
+  [/dent|cl[ií]nica|consult|fisio|psico|nutri|fono|optom|terap|veterin/i, [["Primeira consulta", "50 min"], ["Retorno", "30 min"], ["Avaliação", "40 min"]]],
+];
+function agenda(nome, tipo) {
+  const sv = (SERV_AG.find(([rx]) => rx.test(tipo || "")) || [0, [["Atendimento", "1h"], ["Retorno", "30 min"], ["Avaliação", "40 min"]]])[1];
+  const d0 = new Date(), dias = [];
+  for (let i = 1; dias.length < 5; i++) { const d = new Date(d0); d.setDate(d0.getDate() + i); if (d.getDay() !== 0) dias.push(d); }
+  const DS = ["dom", "seg", "ter", "qua", "qui", "sex", "sáb"];
+  return `<div class="fone" role="img" aria-label="Exemplo da página de agendamento com o nome ${esc(nome)}">
+    <div class="topo"><b>${esc(nome)}</b><span>Agende seu horário</span></div>
+    <div class="corpo"><span class="eti">1 · Serviço</span>${sv.map((s, i) => `<div class="sv${i === 0 ? " on" : ""}"><b>${esc(s[0])}</b><span>${esc(s[1])}</span></div>`).join("")}
+      <span class="eti">2 · Dia</span><div class="dias">${dias.map((d, i) => `<span class="dia${i === 1 ? " on" : ""}">${DS[d.getDay()]}<b>${d.getDate()}</b></span>`).join("")}</div>
+      <span class="eti">3 · Horário</span><div class="horas">${["09:00", "10:30", "14:00", "16:30"].map((h, i) => `<span class="hora${i === 2 ? " on" : ""}">${h}</span>`).join("")}</div>
+      <div class="ok">Confirmar e pagar o sinal por Pix</div></div></div>`;
+}
+function caseHTML(k) {
+  const c = CASES[k];
+  return `<article class="case"><div class="mock"><div class="navegador"><div class="barra"><i></i><i></i><i></i></div><img src="img/${k}-d.jpg" alt="Página inicial do site ${esc(c.nome)} no computador" loading="lazy"></div>
+    <div class="celular"><img src="img/${k}-m.jpg" alt="Site ${esc(c.nome)} no celular" loading="lazy"></div></div>
+    <div class="case-txt"><span class="rot">Case · ${esc(c.rot)}</span><h3>${esc(c.nome)}<i>.</i></h3><p>${esc(c.txt)}</p><div class="chips">${c.chips.map(x => `<span class="chip">${esc(x)}</span>`).join("")}</div></div></article>`;
+}
+function secCases(ks, titulo) {
+  return `<section class="faixa escuro gut">${lente("marca-agua")}<div class="in"><div class="cab-sec"><span class="rot">Trabalhos</span><h2>${titulo}<i>.</i></h2></div><div class="cases">${ks.map(caseHTML).join("")}</div></div></section>`;
+}
+function secProcesso() {
+  const P = [["Conversa", "Entendemos o negócio, o público e o que precisa mudar primeiro."], ["Proposta", "Escopo, prazo e investimento claros, sem surpresa no meio do caminho."], ["Produção", "Textos, fotos e design no padrão da marca, com aprovação em cada etapa."], ["Publicação", "Tudo no ar, com Google e WhatsApp configurados e você sabendo usar."]];
+  return `<section class="faixa gut"><div class="in"><div class="cab-sec"><span class="rot">Como trabalhamos</span><h2>Da conversa inicial à publicação, sem complicação<i>.</i></h2></div>
+    <div class="passos">${P.map((p, i) => `<div class="passo"><span class="n">0${i + 1} / 04</span><h3>${p[0]}</h3><p>${p[1]}</p></div>`).join("")}</div></div></section>`;
+}
+function secCTA(titulo, txt) {
+  return `<section class="faixa escuro gut"><div class="in cta"><h2>${titulo}<i>.</i></h2><p class="lead">Chama no WhatsApp: a primeira conversa é para entender o seu caso, sem compromisso.</p>
+    <div><a class="btn pri" href="${esc(wa(txt))}" target="_blank" rel="noopener">Conversar pelo WhatsApp</a></div><p class="contato">Guilherme Gomes da Silva · (11) 98370-1215 · g.gomes1353@gmail.com · @eikona.mkt</p></div></section>`;
+}
+function vInicio() {
+  return `<section class="faixa hero gut">${lente("marca-agua")}<div class="in"><span class="rot">Sites · fotografia · Instagram</span><h1>Seu negócio encontrado, escolhido e agendado<i>.</i></h1>
+    <p class="lead">Sites, fotografia e gestão de Instagram para empresas de SP, da conversa inicial à publicação, sem complicação.</p>
+    <div class="acoes"><a class="btn pri" href="${esc(wa("Oi! Vi a apresentação da Eikóna e quero conversar."))}" target="_blank" rel="noopener">Conversar pelo WhatsApp</a><a class="btn sec" href="#b2b">Ver cases</a></div></div></section>
+    <section class="faixa areia gut"><div class="in"><div class="cab-sec"><span class="rot">Escolha o seu segmento</span><h2>O que fazemos para cada tipo de negócio<i>.</i></h2></div>
+    <div class="segs">${Object.entries(SEG).map(([k, s]) => `<a class="seg" href="#${k}"><span class="rot">${esc(s.nome)}</span><h3>${esc(s.titulo)}</h3><p>${esc(s.lead.split(". ")[0])}.</p><span class="ir">Ver apresentação →</span></a>`).join("")}</div></div></section>
+    ${secCases(["sentinela", "alm", "santerm", "flysy"], "Alguns dos nossos trabalhos")}${secProcesso()}${secCTA("Vamos ver o que dá para melhorar no seu", "Oi! Vi a apresentação da Eikóna e quero conversar.")}`;
+}
+function vSeg(k) {
+  const s = SEG[k];
+  return `<section class="faixa hero gut">${lente("marca-agua")}<div class="in"><span class="rot">${esc(s.nome)}</span><h1>${esc(s.titulo)}<i>.</i></h1><p class="lead">${esc(s.lead)}</p>
+    <div class="acoes"><a class="btn pri" href="${esc(wa(`Oi! Vi a apresentação da Eikóna para ${s.nome.toLowerCase()} e quero conversar.`))}" target="_blank" rel="noopener">Conversar pelo WhatsApp</a></div></div></section>
+    <section class="faixa areia gut"><div class="in"><div class="cab-sec"><span class="rot">O que costuma travar</span><h2>Onde os clientes se perdem hoje<i>.</i></h2></div>
+      <ul class="lista-v">${s.dores.map(d => `<li><span>${esc(d)}</span></li>`).join("")}</ul></div></section>
+    ${s.agenda ? `<section class="faixa gut"><div class="in agenda-box"><div class="cab-sec" style="margin:0"><span class="rot">Agenda online</span><h2>A cliente marca sozinha, a qualquer hora<i>.</i></h2>
+      <p class="lead">Ela escolhe o serviço, o dia e o horário, paga o sinal por Pix e recebe a confirmação e o lembrete no WhatsApp. Você só acompanha.</p>
+      <div><a class="btn sec" href="agenda/" target="_blank" rel="noopener">Testar a demonstração</a></div></div>${agenda(k === "saude" ? "Sua clínica" : "Seu estúdio", k === "saude" ? "clínica" : "esmalteria")}</div></section>` : ""}
+    <section class="faixa gut ${s.agenda ? "areia" : ""}"><div class="in"><div class="cab-sec"><span class="rot">O que entregamos</span><h2>Do primeiro clique ao cliente na porta<i>.</i></h2></div>
+      <div class="solucoes">${s.entregas.map(e => `<div class="sol"><h3>${esc(e[0])}</h3><p>${esc(e[1])}</p></div>`).join("")}</div></div></section>
+    ${secCases(s.cases, "Trabalhos que mostram como fazemos")}${secProcesso()}${secCTA("Vamos ver o que dá para melhorar no seu", `Oi! Vi a apresentação da Eikóna para ${s.nome.toLowerCase()} e quero conversar.`)}`;
+}
+function achados(p) {
+  const A = [], tipo = (p.t || "").toLowerCase(), b = p.d;
+  const host = u => { try { return new URL(/^https?:/.test(u) ? u : "http://" + u).hostname.replace(/^www\./, ""); } catch { return "o site"; } };
+  if (p.g.includes("site_fora")) A.push(["!", "O site não abre", `Ao abrir ${host(p.w)}, ${p.wy}. Quem chega pelo Google ou por um link antigo encontra uma página de erro e procura outra opção.`]);
+  if (p.g.includes("site_gratis")) A.push(["!", "O site gratuito do Google foi desativado", "Em 2024 o Google encerrou os sites gratuitos do Perfil da Empresa. O link que ainda aparece para vocês leva a uma página de erro."]);
+  if (p.g.includes("site_antigo")) A.push(["!", "O site está desatualizado", `Na verificação de ${host(p.w)}: ${p.wy}. A maioria das pessoas pesquisa pelo celular, e um site assim passa a impressão de empresa parada.`]);
+  if (p.g.includes("so_link")) A.push(["!", "Só um link na bio", "A presença online depende de um agregador de links, sem uma página própria para aparecer no Google."]);
+  if (p.g.includes("sem_site")) A.push(["!", "Não encontramos um site", `Nos cadastros públicos que consultamos não aparece um site de vocês. Quem pesquisa ${tipo || "o serviço"} em ${b} encontra primeiro quem tem.`]);
+  if (p.g.includes("sem_agenda")) A.push(["!", "Agendamento só por mensagem", "Não encontramos agenda online. Cada horário depende de troca de mensagens, e quem quer marcar fora do horário comercial desiste ou marca em outro lugar."]);
+  if (p.g.includes("sem_ig") && !p.o) A.push(["i", "Instagram não aparece nos cadastros", "Se vocês já têm um perfil, vale ligá-lo ao Google e ao site, para quem pesquisa ver o trabalho antes de entrar em contato."]);
+  return A;
+}
+function solucoes(p) {
+  const S = [];
+  if (p.g.some(g => ["site_fora", "site_gratis", "site_antigo", "so_link", "sem_site"].includes(g))) S.push(p.s === "b2b" ? ["Site e catálogo digital", "Site institucional com as linhas de produto e um catálogo que o comprador usa sem ligar."] : ["Site profissional", "Rápido no celular, com serviços, fotos, localização, botão de WhatsApp e Google configurado."]);
+  if (p.g.includes("sem_agenda")) S.push(["Agenda online", "A cliente marca sozinha e paga o sinal por Pix. Confirmação e lembrete no WhatsApp."]);
+  if (p.s !== "b2b") S.push(["Instagram com direção de arte", "Padrão visual, artes e legendas para o perfil mostrar a qualidade do trabalho."]);
+  return S;
+}
+async function vDiag(id) {
+  const V = document.getElementById("vista");
+  V.innerHTML = `<div class="gut"><div class="in carregando">Carregando o diagnóstico…</div></div>`;
+  let p = null;
+  try { const r = await fetch("d/" + id.slice(-2).toLowerCase() + ".json"); if (r.ok) p = (await r.json())[id]; } catch {}
+  if (location.hash.slice(1) !== id) return;
+  if (!p) { V.innerHTML = `<section class="faixa gut"><div class="in cta"><span class="rot">Diagnóstico</span><h2>Não encontramos este diagnóstico<i>.</i></h2><p class="lead">O link pode estar incompleto. Veja o que fazemos para cada segmento ou fale direto com a gente.</p><div><a class="btn pri" href="#inicio">Ver apresentação</a></div></div></section>`; return; }
+  const A = achados(p), seg = SEG[p.s] || SEG.comercio, temAg = p.g.includes("sem_agenda");
+  const txt = `Oi! Vi o diagnóstico que vocês fizeram do ${p.n} e quero conversar.`;
+  document.title = "Diagnóstico · " + p.n;
+  V.innerHTML = `<section class="faixa hero gut">${lente("marca-agua")}<div class="in"><span class="rot">Diagnóstico digital · ${esc(p.t)} · ${esc(p.d)}</span><h1>${esc(p.n)}<i>.</i></h1>
+      <p class="lead">Olhamos como o ${esc(p.n)} aparece para quem procura ${esc((p.t || "o serviço").toLowerCase())} em ${esc(p.d)}. Encontramos ${A.length === 1 ? "um ponto" : A.length + " pontos"} que fazem clientes desistirem antes de entrar em contato.</p>
+      <div class="acoes"><a class="btn pri" href="${esc(wa(txt))}" target="_blank" rel="noopener">Conversar sobre o diagnóstico</a></div></div></section>
+    <section class="faixa areia gut"><div class="in"><div class="cab-sec"><span class="rot">O que encontramos</span><h2>${A.length ? "Pontos de atenção" : "Presença em ordem"}<i>.</i></h2></div>
+      <div class="achados">${A.map(a => `<div class="achado${a[0] === "i" ? " leve" : ""}"><span class="ico" aria-hidden="true">${a[0]}</span><div><h3>${esc(a[1])}</h3><p>${esc(a[2])}</p></div></div>`).join("")}</div>
+      <p class="nota" style="margin-top:14px">Verificação feita com dados públicos em ${VERIF}. Se algo já mudou, ótimo: é só nos avisar.</p></div></section>
+    ${temAg ? `<section class="faixa gut"><div class="in agenda-box"><div class="cab-sec" style="margin:0"><span class="rot">Como ficaria</span><h2>A agenda do ${esc(p.n)}, aberta 24 horas<i>.</i></h2>
+      <p class="lead">Um exemplo com o nome de vocês: a cliente escolhe o serviço, o dia e o horário, paga o sinal por Pix e recebe a confirmação no WhatsApp.</p>
+      <div><a class="btn sec" href="agenda/" target="_blank" rel="noopener">Testar a demonstração completa</a></div></div>${agenda(p.n, p.t)}</div></section>` : ""}
+    <section class="faixa gut ${temAg ? "areia" : ""}"><div class="in"><div class="cab-sec"><span class="rot">O que faríamos</span><h2>Para resolver, nesta ordem<i>.</i></h2></div>
+      <div class="solucoes">${solucoes(p).map(s => `<div class="sol"><h3>${esc(s[0])}</h3><p>${esc(s[1])}</p></div>`).join("")}</div></div></section>
+    ${secCases(seg.cases, "Trabalhos parecidos que já fizemos")}${secCTA("Quer resolver isso", txt)}`;
+}
+function rota() {
+  const h = location.hash.slice(1);
+  document.querySelectorAll(".nav a").forEach(a => a.setAttribute("aria-current", a.dataset.v === h ? "page" : "false"));
+  document.title = "Eikóna · Marketing e Comunicação";
+  const V = document.getElementById("vista");
+  if (SEG[h]) V.innerHTML = vSeg(h);
+  else if (/^[FO][A-Za-z0-9]{3,24}$/.test(h)) { vDiag(h); }
+  else V.innerHTML = vInicio();
+  V.classList.remove("vista"); void V.offsetWidth; V.classList.add("vista");
+  window.scrollTo(0, 0);
+}
+addEventListener("hashchange", rota);
+rota();
+})();
+</script>
+
+</body>
+</html>

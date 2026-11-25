@@ -1,0 +1,1037 @@
+<!doctype html><html lang="pt-BR"><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Agenda Online Sua Marca</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,800&family=Oswald:wght@500;600&family=Inter:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: app de uma coluna (até 820px). Faixa de demonstração no topo; cabeçalho com a marca e faixa tracejada; página da cliente em 3 passos; painel com abas */
+:root{
+  --bg:#121315; --surface:#1B1D20; --surface2:#24272B; --line:#33373D; --ink:#F1EEE8; --muted:#A7A29B;
+  --ok:#5CC98E; --ok-bg:#163126; --warn:#E8AC5A; --warn-bg:#382912; --bad:#F08C95; --bad-bg:#3C1E22;
+  --wa:#1E9A5A; --on-wa:#FFFFFF; --demo:#2B2E33;
+  --accent:#E3C489; --on-accent:#1B1712;
+  --accent-soft:color-mix(in srgb, var(--accent) 16%, var(--surface));
+  --accent-line:color-mix(in srgb, var(--accent) 45%, var(--line));
+  --f-marca:"Fraunces",Georgia,serif;
+  --f-display:"Oswald","Arial Narrow",system-ui,sans-serif;
+  --f-body:Inter,"Segoe UI",system-ui,-apple-system,sans-serif;
+  --r:14px; --qr-bg:#FFFFFF; --qr-ink:#1B1712;
+  color-scheme:dark;
+}
+@media (prefers-color-scheme: light){:root:not([data-theme="dark"]){
+  --bg:#F4F2EE; --surface:#FFFFFF; --surface2:#EFECE6; --line:#E0DBD2; --ink:#1E1C19; --muted:#69635B;
+  --ok:#12784A; --ok-bg:#E2F2E9; --warn:#8F5100; --warn-bg:#FBEEDC; --bad:#A3333D; --bad-bg:#F9E3E5;
+  --wa:#12784A; --on-wa:#FFFFFF; --demo:#E7E3DC;
+  color-scheme:light;}}
+:root[data-theme="light"]{
+  --bg:#F4F2EE; --surface:#FFFFFF; --surface2:#EFECE6; --line:#E0DBD2; --ink:#1E1C19; --muted:#69635B;
+  --ok:#12784A; --ok-bg:#E2F2E9; --warn:#8F5100; --warn-bg:#FBEEDC; --bad:#A3333D; --bad-bg:#F9E3E5;
+  --wa:#12784A; --on-wa:#FFFFFF; --demo:#E7E3DC;
+  color-scheme:light;}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.45}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--demo)}
+h1,h2,h3{margin:0;text-wrap:balance}
+button,input,select,textarea{font:inherit;color:inherit}
+.num{font-variant-numeric:tabular-nums}
+.wrap{max-width:820px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+/* faixa de demonstração */
+.demo{background:var(--demo);font-size:13px}
+.demo .wrap{display:flex;align-items:center;justify-content:space-between;gap:10px;padding-block:8px;flex-wrap:wrap}
+.demo .tag{color:var(--muted);font-weight:500}
+.demo .tag b{color:var(--ink);font-weight:600}
+.seg{display:flex;background:var(--bg);border-radius:999px;padding:3px;gap:2px}
+.seg a{padding:5px 12px;border-radius:999px;text-decoration:none;color:var(--muted);font-weight:600}
+.seg a[aria-current="page"]{background:var(--accent);color:var(--on-accent)}
+
+/* cabeçalho da marca */
+.topo{position:relative;background:
+  radial-gradient(circle at 20% 30%, color-mix(in srgb,var(--accent) 22%,transparent) 0 3px, transparent 4px) 0 0/46px 46px,
+  radial-gradient(circle at 70% 75%, color-mix(in srgb,var(--accent) 14%,transparent) 0 6px, transparent 7px) 0 0/46px 46px,
+  linear-gradient(180deg, color-mix(in srgb,var(--accent) 14%,var(--surface)), var(--surface));}
+.topo::after{content:"";display:block;height:8px;background:repeating-linear-gradient(90deg,var(--accent) 0 10px,transparent 10px 18px);opacity:.9}
+.marca{display:flex;align-items:center;gap:14px}
+.logo{flex:none;width:52px;height:52px;border-radius:50%;display:grid;place-items:center;background:var(--accent);color:var(--on-accent);overflow:hidden}
+.logo img{width:100%;height:100%;object-fit:cover}
+.logo.vazio{background:none;border:2px dashed var(--accent);color:var(--accent);font-size:9px;font-weight:700;letter-spacing:.04em;text-align:center;line-height:1.1}
+.marca-nome{font-family:var(--f-marca);font-weight:800;letter-spacing:-.01em;line-height:1.05}
+.marca-frase{font-family:var(--f-marca);font-style:italic;font-weight:700;color:var(--accent);opacity:.95}
+.topo.grande .wrap{padding-block:30px 26px;display:grid;gap:10px}
+.topo.grande .logo{width:68px;height:68px}
+.topo.grande .marca-nome{font-size:clamp(30px,7vw,44px)}
+.topo.grande .marca-frase{font-size:19px}
+.endereco{color:var(--muted);font-size:14px;display:flex;gap:6px;align-items:center}
+.topo.painel{position:sticky;top:env(safe-area-inset-top,0px);z-index:5}
+.topo.painel .wrap{padding-block:12px 0}
+.topo.painel .marca-nome{font-size:21px}
+.topo.painel .logo{width:34px;height:34px}
+.topo.painel .logo.vazio{font-size:6px}
+.linha-topo{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.tabs{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;padding-block:10px 10px}
+.tabs button{border:0;background:none;padding:8px 13px;border-radius:999px;font-weight:600;font-size:14px;color:var(--muted);cursor:pointer;white-space:nowrap;display:flex;gap:6px;align-items:center}
+.tabs button[aria-selected="true"]{background:var(--accent-soft);color:var(--ink)}
+.badge{background:var(--accent);color:var(--on-accent);border-radius:999px;font-size:11px;min-width:20px;height:18px;display:inline-grid;place-items:center;padding:0 5px;font-weight:700}
+
+main{padding-block:22px 90px;display:grid;gap:26px}
+section{display:grid;gap:12px;min-width:0}
+.passo-h{display:flex;align-items:center;gap:10px;font-family:var(--f-display);font-weight:600;text-transform:uppercase;font-size:20px;letter-spacing:.03em}
+.passo-h .n{width:28px;height:28px;border-radius:50%;border:2px solid var(--accent);color:var(--accent);display:grid;place-items:center;font-size:14px}
+.passo-h.feito .n{background:var(--accent);color:var(--on-accent)}
+.sec-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.sec-head h2{font-family:var(--f-display);font-weight:600;font-size:19px}
+.hint{color:var(--muted);font-size:13px;margin:0}
+.eyebrow{text-transform:uppercase;letter-spacing:.08em;font-size:11px;font-weight:700;color:var(--muted)}
+
+/* página da cliente */
+.servs{display:grid;gap:8px}
+.serv{display:flex;justify-content:space-between;align-items:center;gap:12px;text-align:left;border:1px solid var(--line);background:var(--surface);border-radius:var(--r);padding:14px 16px;cursor:pointer;width:100%}
+.serv:hover{border-color:var(--accent-line)}
+.serv[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.serv strong{display:block;font-weight:600}
+.serv .sub{color:var(--muted);font-size:13px}
+.serv .preco{font-weight:700;white-space:nowrap}
+.dias{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;scrollbar-width:thin}
+.dia{flex:none;width:68px;border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:9px 4px;display:grid;justify-items:center;gap:1px;cursor:pointer}
+.dia .d3{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.dia .dn{font-family:var(--f-display);font-weight:600;font-size:21px;line-height:1.1}
+.dia .mm{font-size:11px;color:var(--muted)}
+.dia .vg{font-size:11px;font-weight:700;color:var(--ok)}
+.dia .vg.zero{color:var(--muted);font-weight:500}
+.dia[aria-pressed="true"]{background:var(--accent);border-color:var(--accent)}
+.dia[aria-pressed="true"] *{color:var(--on-accent)}
+.dia:disabled{opacity:.45;cursor:default}
+.turno{display:grid;gap:6px}
+.horas{display:flex;flex-wrap:wrap;gap:8px}
+.hora{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:8px 16px;font-weight:700;cursor:pointer;font-variant-numeric:tabular-nums}
+.hora:hover{border-color:var(--accent-line)}
+.hora[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.resumo{background:var(--surface);border:1px solid var(--accent-line);border-radius:var(--r);padding:16px;display:grid;gap:14px}
+.resumo .linha{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+/* componentes */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:8px 14px;font-weight:600;font-size:14px;cursor:pointer;text-decoration:none;color:var(--ink);white-space:nowrap}
+.btn:hover{border-color:var(--muted)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.btn.wa{background:var(--wa);border-color:var(--wa);color:var(--on-wa)}
+.btn.wa.soft{background:var(--ok-bg);border-color:transparent;color:var(--ok)}
+.btn.ghost{background:none;border-color:transparent;padding-inline:8px}
+.btn.danger{color:var(--bad);border-color:transparent;background:var(--bad-bg)}
+.btn.sm{padding:5px 11px;font-size:13px}
+.btn.big{padding:12px 20px;font-size:15px}
+.btn:disabled{opacity:.5;cursor:default}
+:is(.btn,.tabs button,.serv,.dia,.hora,.chip,.seg a,.periodo button,.diasem):focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+.list{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.row{display:flex;align-items:center;gap:12px;padding:12px 14px;border-top:1px solid var(--line)}
+.row:first-child{border-top:0}
+.row-main{flex:1;min-width:0;display:grid}
+.row-main strong{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sub{color:var(--muted);font-size:13px}
+.time{font-family:var(--f-display);font-weight:600;font-size:18px;min-width:52px}
+.pill{display:inline-flex;align-items:center;border-radius:999px;font-size:12px;font-weight:600;padding:2px 9px;background:var(--accent-soft);color:var(--ink)}
+.pill.ok{background:var(--ok-bg);color:var(--ok)}
+.pill.warn{background:var(--warn-bg);color:var(--warn)}
+.pill.bad{background:var(--bad-bg);color:var(--bad)}
+.pill.mute{background:var(--surface2);color:var(--muted)}
+.pills{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px}
+.empty{background:var(--surface);border:1px dashed var(--line);border-radius:var(--r);padding:20px;text-align:center;color:var(--muted)}
+.empty strong{display:block;color:var(--ink);font-family:var(--f-display);font-weight:600;font-size:18px;margin-bottom:4px}
+.notice{border-radius:12px;padding:12px 14px;background:var(--warn-bg);color:var(--warn);font-size:14px}
+
+/* números */
+.stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px;display:grid;align-content:start;gap:2px;min-width:0}
+.stat b{font-family:var(--f-display);font-weight:600;font-size:26px;line-height:1.15}
+.stat span{font-size:14px}
+.stat small{color:var(--muted);font-size:12.5px;line-height:1.35}
+
+/* agenda */
+.weeknav{display:flex;align-items:center;gap:8px;justify-content:space-between}
+.weeknav h2{font-family:var(--f-display);font-weight:600;font-size:19px}
+.semana{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
+.diasem{border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:9px 2px;display:grid;justify-items:center;gap:2px;cursor:pointer;min-width:0}
+.diasem .d3{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.diasem .dn{font-family:var(--f-display);font-weight:600;font-size:19px}
+.diasem .dc{font-size:11px;color:var(--muted);height:15px}
+.diasem[aria-pressed="true"]{background:var(--accent);border-color:var(--accent)}
+.diasem[aria-pressed="true"] *{color:var(--on-accent)}
+.diasem.hoje .dn{text-decoration:underline;text-underline-offset:3px}
+.diasem.fechado{opacity:.5}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1px dashed var(--accent-line);background:none;border-radius:999px;padding:5px 11px;font-weight:600;font-size:13px;cursor:pointer;font-variant-numeric:tabular-nums}
+.chip:hover{background:var(--accent-soft)}
+.cards{display:grid;gap:8px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);display:grid;grid-template-columns:auto minmax(0,1fr);gap:0 14px;padding:13px 15px}
+.card.st-cancelado,.card.st-faltou{opacity:.7}
+.card.bloqueio{background:repeating-linear-gradient(-45deg,var(--surface) 0 9px,var(--surface2) 9px 18px)}
+.card .t{display:grid;align-content:start}
+.card .t b{font-family:var(--f-display);font-weight:600;font-size:19px}
+.card .t span{font-size:12px;color:var(--muted)}
+.card .body{min-width:0;cursor:pointer;background:none;border:0;text-align:left;padding:0}
+.card .body strong{font-weight:600}
+.more{grid-column:1/-1;display:grid;gap:12px;margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}
+.grp{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.grp .lbl{width:100%;font-size:12px;color:var(--muted);font-weight:600}
+.sent{font-size:12px;color:var(--ok);font-weight:600}
+
+/* relatórios */
+.periodo{display:flex;gap:6px;flex-wrap:wrap}
+.periodo button{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:7px 13px;font-weight:600;font-size:14px;cursor:pointer}
+.periodo button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.barras{display:grid;gap:10px}
+.barra{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;font-size:14px}
+.barra .trilho{grid-column:1/-1;height:8px;background:var(--surface2);border-radius:99px;overflow:hidden}
+.barra .trilho i{display:block;height:100%;background:var(--accent);border-radius:99px}
+
+/* formulários */
+form{display:grid;gap:14px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;display:grid;gap:14px;min-width:0}
+.panel h2{font-family:var(--f-display);font-weight:600;font-size:19px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+label{display:grid;gap:4px;font-size:13px;font-weight:600;color:var(--muted);min-width:0}
+input,select,textarea{border:1px solid var(--line);background:var(--bg);border-radius:10px;padding:9px 11px;font-weight:400;font-size:15px;width:100%;min-width:0;color:var(--ink)}
+input[type="color"]{padding:3px;height:42px;cursor:pointer}
+textarea{resize:vertical;min-height:92px;line-height:1.4}
+.check{display:flex;gap:8px;align-items:center;font-weight:500;color:var(--ink);font-size:14px}
+.check input{width:auto}
+.fechados{display:flex;flex-wrap:wrap;gap:6px}
+.fechados label{display:flex;gap:6px;align-items:center;border:1px solid var(--line);border-radius:999px;padding:5px 11px;color:var(--ink);font-weight:500;cursor:pointer}
+.fechados input{width:auto}
+.actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.svc-row{display:grid;grid-template-columns:minmax(0,1fr) 90px 110px auto;gap:8px;align-items:end;padding:10px 0;border-top:1px solid var(--line)}
+.svc-row:first-child{border-top:0;padding-top:0}
+@media (max-width:540px){.svc-row{grid-template-columns:1fr 1fr}.svc-row label:first-child{grid-column:1/-1}}
+.preview{background:var(--ok-bg);color:var(--ink);border-radius:12px 12px 12px 3px;padding:10px 12px;font-size:14px;white-space:pre-wrap;max-width:460px}
+.vars{display:flex;flex-wrap:wrap;gap:4px}
+.vars button{border:1px solid var(--line);background:var(--bg);border-radius:6px;font-size:12px;padding:2px 7px;cursor:pointer;font-family:ui-monospace,Consolas,monospace}
+.copybox{min-height:150px}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(16px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:12px;font-size:14px;z-index:20;max-width:calc(100% - 32px)}
+@media (prefers-reduced-motion:no-preference){.toast{animation:up .2s ease-out}@keyframes up{from{transform:translate(-50%,8px);opacity:0}}}
+.card.st-expirado{opacity:.7}
+.pix{display:grid;grid-template-columns:auto minmax(0,1fr);gap:18px;align-items:start}
+@media (max-width:560px){.pix{grid-template-columns:1fr;justify-items:center}.pix>div:last-child{width:100%}}
+.qr{position:relative;background:var(--qr-bg);padding:10px;border-radius:12px;width:200px;height:200px}
+.qr #qr-in canvas,.qr #qr-in img{display:block;width:180px;height:180px}
+.qr.exemplo #qr-in{filter:blur(3px);opacity:.45}
+.qr-aviso{position:absolute;inset:0;display:grid;place-items:center;text-align:center;font-weight:700;color:var(--qr-ink);font-size:14px;padding:22px;line-height:1.3}
+.copia{font-family:ui-monospace,Consolas,monospace;font-size:12px;word-break:break-all;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:8px 10px;max-height:76px;overflow:auto;user-select:all}
+.contador{font-family:var(--f-display);font-size:26px;font-weight:600;line-height:1.1}
+.valor-sinal{font-family:var(--f-display);font-size:22px;font-weight:600}
+@media (max-width:540px){.row.hj{flex-wrap:wrap}.row.hj>.actions{width:100%;padding-left:64px}}
+@media (max-width:480px){.semana{gap:4px}.diasem .dc{font-size:10px}}
+</style>
+
+<div class="demo"><div class="wrap">
+  <span class="tag"><b>Demonstração</b> · troque marca, serviços e horários em Ajustes</span>
+  <nav class="seg" aria-label="Escolher tela"><a href="#agendar" id="nav-agendar">Página da cliente</a><a href="#painel" id="nav-painel">Painel</a></nav>
+</div></div>
+<div id="app"></div>
+<div id="toast" class="toast" hidden></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+/* ---------- utilidades ---------- */
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const pad = n => String(n).padStart(2,'0');
+const ds = d => `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+const parse = s => { const [y,m,d] = s.split('-').map(Number); return new Date(y, m-1, d); };
+const addDays = (s,n) => { const d = parse(s); d.setDate(d.getDate()+n); return ds(d); };
+const diffDays = (a,b) => Math.round((parse(b) - parse(a)) / 864e5);
+const today = () => ds(new Date());
+const nowMin = () => { const d = new Date(); return d.getHours()*60 + d.getMinutes(); };
+const toMin = h => { if (!h) return 0; const [a,b] = h.split(':').map(Number); return a*60 + (b||0); };
+const toHM = m => pad(Math.floor(m/60)) + ':' + pad(m%60);
+const DOW = ['domingo','segunda','terça','quarta','quinta','sexta','sábado'];
+const DOW3 = ['dom','seg','ter','qua','qui','sex','sáb'];
+const MES = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+const fmtData = s => { const d = parse(s); return pad(d.getDate()) + '/' + pad(d.getMonth()+1); };
+const diaCurto = s => { const t = today(); if (s === t) return 'hoje'; if (s === addDays(t,1)) return 'amanhã'; return DOW3[parse(s).getDay()] + ' ' + fmtData(s); };
+const money = v => (v == null || v === '' || isNaN(v)) ? '' : 'R$ ' + Number(v).toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+const parseMoney = s => { s = String(s ?? '').replace(/[^\d,.]/g,''); if (!s) return null; if (s.includes(',')) s = s.replace(/\./g,'').replace(',','.'); const n = parseFloat(s); return isNaN(n) ? null : n; };
+const digits = t => String(t ?? '').replace(/\D/g,'');
+const normTel = t => { const d = digits(t); if (d.startsWith('55') && (d.length === 12 || d.length === 13)) return d; if (d.length === 10 || d.length === 11) return '55' + d; return ''; };
+const fmtTel = t => { let d = digits(t); if (d.startsWith('55') && d.length > 11) d = d.slice(2); if (d.length === 11) return `(${d.slice(0,2)}) ${d.slice(2,7)}-${d.slice(7)}`; if (d.length === 10) return `(${d.slice(0,2)}) ${d.slice(2,6)}-${d.slice(6)}`; return String(t ?? '').trim(); };
+const fmtStamp = iso => { if (!iso) return ''; const d = new Date(iso); return pad(d.getDate()) + '/' + pad(d.getMonth()+1) + ' ' + pad(d.getHours()) + ':' + pad(d.getMinutes()); };
+const uid = () => Math.random().toString(36).slice(2, 10) + Date.now().toString(36).slice(-4);
+const durTxt = m => m >= 60 ? (Math.floor(m/60) + 'h' + (m%60 ? pad(m%60) : '')) : m + ' min';
+
+/* ---------- dados (demonstração: ficam salvos neste navegador) ---------- */
+const KEY = 'agenda-sua-marca-v1';
+const MSG = {
+  msgConfirmacao: 'Oi, {primeiro_nome}! Seu horário de {servico} está marcado para {dia_semana}, {data}, às {hora}.\nSinal de {sinal} recebido ✅\n📍 {endereco}\nPode me confirmar respondendo esta mensagem?\n{marca}',
+  msgVespera: 'Oi, {primeiro_nome}! Passando para lembrar do seu {servico} amanhã, {data}, às {hora}. Se precisar remarcar, me avisa por aqui.\n{marca}',
+  msgDia: 'Bom dia, {primeiro_nome}! Te espero hoje às {hora} para o seu {servico}.\n📍 {endereco}'
+};
+const CFG0 = { marca: 'Coloque sua marca', frase: 'agende seu horário', endereco: 'Seu endereço aqui', whats: '', cor: '#E3C489', logo: '',
+  abre: '09:00', fecha: '19:00', passo: 30, fechados: [0],
+  pixAtivo: true, pixTipo: 'cel', pixChave: '', pixNome: '', pixCidade: '', sinalTipo: 'fixo', sinalValor: 30, prazoMin: 30,
+  politica: 'O sinal é descontado do valor no dia do atendimento. Em caso de falta ou cancelamento com menos de 24 horas de antecedência, ele não é devolvido.', ...MSG };
+function seed() {
+  const h = today();
+  const sv = [
+    { id: 's1', nome: 'Defina seu serviço', dur: 60, valor: 100 },
+    { id: 's2', nome: 'Defina seu serviço 2', dur: 90, valor: 150 },
+    { id: 's3', nome: 'Defina seu serviço 3', dur: 30, valor: 50 }
+  ];
+  const cl = [['Cliente Exemplo 1','11900000001'],['Cliente Exemplo 2','11900000002'],['Cliente Exemplo 3','11900000003'],['Cliente Exemplo 4','11900000004'],['Cliente Exemplo 5','11900000005']];
+  const mk = (ci, si, dOff, hora, status, origem, extra = {}) => {
+    const s = sv[si], data = addDays(h, dOff);
+    return { id: uid(), tipo: 'atendimento', cliente: cl[ci][0], tel: fmtTel(cl[ci][1]), servico: s.nome, dur: s.dur, valor: s.valor, data, hora, status, origem,
+      confirmou: false, enviados: {}, obs: '', criado: new Date(parse(addDays(data, -3)).getTime() + 36e6).toISOString(), ...extra };
+  };
+  const ags = [
+    mk(0,0,-24,'10:00','concluido','painel'), mk(1,1,-20,'14:00','concluido','link'), mk(2,2,-15,'09:30','faltou','painel'),
+    mk(3,0,-9,'16:00','concluido','link'), mk(0,2,-6,'11:00','concluido','painel'), mk(4,1,-3,'15:00','cancelado','link'),
+    mk(1,0,-1,'10:00','concluido','painel'),
+    mk(2,1,0,'14:00','agendado','link',{ criado: new Date(Date.now() - 5*36e5).toISOString() }),
+    mk(3,2,0,'18:00','agendado','painel',{ confirmou: true, enviados: { confirmacao: new Date(Date.now() - 864e5).toISOString() } }),
+    mk(4,0,1,'10:30','agendado','link',{ criado: new Date(Date.now() - 2*36e5).toISOString() }),
+    mk(0,1,2,'13:00','agendado','painel'), mk(1,2,4,'17:30','agendado','link')
+  ];
+  ags.push(mk(4,2,1,'16:00','aguardando','link',{ sinal: 30, expira: new Date(Date.now() + 18*6e4).toISOString(), criado: new Date(Date.now() - 12*6e4).toISOString() }));
+  ags.forEach(a => { if (a.origem === 'link' && a.status !== 'cancelado' && a.status !== 'aguardando') { a.sinal = Math.min(30, a.valor); a.sinalPago = a.criado; } });
+  ags.push({ id: uid(), tipo: 'bloqueio', cliente: '', tel: '', servico: '', dur: 60, valor: null, data: addDays(h, 1), hora: '12:00', status: 'agendado', origem: 'painel', confirmou: false, enviados: {}, obs: 'Almoço', criado: new Date().toISOString() });
+  return { cfg: { ...CFG0 }, servicos: sv, ags };
+}
+let D;
+try { D = JSON.parse(localStorage.getItem(KEY)); } catch { D = null; }
+if (!D || !D.cfg || !Array.isArray(D.ags)) D = seed();
+D.cfg = { ...CFG0, ...D.cfg };
+function save() { try { localStorage.setItem(KEY, JSON.stringify(D)); } catch {} }
+
+/* ---------- cor da marca ---------- */
+function aplicaCor() {
+  const c = /^#[0-9a-f]{6}$/i.test(D.cfg.cor) ? D.cfg.cor : CFG0.cor;
+  const [r,g,b] = [1,3,5].map(i => parseInt(c.slice(i,i+2),16)/255).map(v => v <= .03928 ? v/12.92 : ((v+.055)/1.055)**2.4);
+  const L = .2126*r + .7152*g + .0722*b;
+  document.documentElement.style.setProperty('--accent', c);
+  document.documentElement.style.setProperty('--on-accent', L > .35 ? '#1B1712' : '#FFFFFF');
+}
+
+/* ---------- regras da agenda ---------- */
+const isBloq = a => a.tipo === 'bloqueio';
+const ativo = a => !['cancelado','faltou','expirado'].includes(a.status);
+function expira() { let m = false; const n = Date.now(); D.ags.forEach(a => { if (a.status === 'aguardando' && a.expira && new Date(a.expira).getTime() < n) { a.status = 'expirado'; m = true; } }); if (m) save(); return m; }
+const minsLeft = a => Math.max(0, Math.ceil((new Date(a.expira).getTime() - Date.now()) / 6e4));
+const fmtLeft = m => m >= 60 ? `${Math.floor(m/60)}h${pad(m%60)}` : `${m} min`;
+function valorSinal(s) {
+  if (!D.cfg.pixAtivo) return 0;
+  const v = Number(s.valor) || 0, x = Number(D.cfg.sinalValor) || 0;
+  const r = D.cfg.sinalTipo === 'pct' ? Math.round(v * x) / 100 : (v ? Math.min(x, v) : x);
+  return r > 0 ? r : 0;
+}
+/* Pix copia e cola (padrão BR Code do Banco Central) */
+const semAcento = t => String(t || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^A-Za-z0-9 .-]/g, '').toUpperCase().trim();
+function chavePix() {
+  const k = String(D.cfg.pixChave || '').trim(); if (!k) return '';
+  switch (D.cfg.pixTipo) {
+    case 'cpf': return digits(k);
+    case 'cel': { let d = digits(k); if (d.startsWith('55') && d.length > 11) d = d.slice(2); return d.length >= 10 ? '+55' + d : ''; }
+    case 'email': return k.toLowerCase();
+    default: return k;
+  }
+}
+function crc16(t) { let c = 0xFFFF; for (let i = 0; i < t.length; i++) { c ^= t.charCodeAt(i) << 8; for (let j = 0; j < 8; j++) c = (c & 0x8000) ? ((c << 1) ^ 0x1021) & 0xFFFF : (c << 1) & 0xFFFF; } return c.toString(16).toUpperCase().padStart(4, '0'); }
+const tlv = (id, v) => id + pad(String(v).length) + v;
+function pixPayload(valor, txid, chaveForcada) {
+  const ch = chaveForcada || chavePix(); if (!ch) return '';
+  const nome = semAcento(D.cfg.pixNome || D.cfg.marca).slice(0, 25) || 'RECEBEDOR';
+  const cid = semAcento(D.cfg.pixCidade).slice(0, 15) || 'SAO PAULO';
+  const tx = String(txid || '').replace(/[^A-Za-z0-9]/g, '').slice(0, 25) || '***';
+  const p = tlv('00','01') + tlv('26', tlv('00','br.gov.bcb.pix') + tlv('01', ch)) + tlv('52','0000') + tlv('53','986')
+    + (valor > 0 ? tlv('54', Number(valor).toFixed(2)) : '') + tlv('58','BR') + tlv('59', nome) + tlv('60', cid) + tlv('62', tlv('05', tx)) + '6304';
+  return p + crc16(p);
+}
+const fechado = data => (D.cfg.fechados || []).includes(parse(data).getDay());
+function conflitos(data, hora, dur, ignoreId) {
+  const s = toMin(hora), e = s + (Number(dur) || 0);
+  return D.ags.filter(a => a.id !== ignoreId && a.data === data && ativo(a) && toMin(a.hora) < e && toMin(a.hora) + (Number(a.dur) || 0) > s);
+}
+function minDur() { const x = D.servicos.map(s => Number(s.dur)).filter(n => n > 0); return x.length ? Math.min(...x) : (Number(D.cfg.passo) || 30); }
+function livres(data, dur) {
+  if (data < today() || fechado(data)) return [];
+  const passo = Math.max(5, Number(D.cfg.passo) || 30), d = dur || minDur(), out = [];
+  const abre = toMin(D.cfg.abre), fecha = toMin(D.cfg.fecha), t0 = data === today() ? nowMin() + 30 : -1;
+  for (let t = abre; t + d <= fecha; t += passo) { if (t > t0 && !conflitos(data, toHM(t), d).length) out.push(toHM(t)); }
+  return out;
+}
+function pendencias() {
+  const h = today(), am = addDays(h, 1), nm = nowMin();
+  const ag = D.ags.filter(a => !isBloq(a) && a.status === 'agendado');
+  const by = (x,y) => (x.data + x.hora).localeCompare(y.data + y.hora);
+  const env = (a,k) => a.enviados && a.enviados[k];
+  const confirmacao = ag.filter(a => a.data >= h && !env(a,'confirmacao') && !a.confirmou).sort(by);
+  const vespera = ag.filter(a => a.data === am && !env(a,'vespera')).sort(by);
+  const dia = ag.filter(a => a.data === h && !env(a,'dia') && toMin(a.hora) > nm).sort(by);
+  const sinal = D.ags.filter(a => !isBloq(a) && a.status === 'aguardando').sort(by);
+  return { sinal, confirmacao, vespera, dia, total: sinal.length + confirmacao.length + vespera.length + dia.length };
+}
+function clientes() {
+  const m = new Map();
+  [...D.ags].filter(a => !isBloq(a) && a.cliente).sort((a,b) => (a.data+a.hora).localeCompare(b.data+b.hora)).forEach(a => {
+    const k = digits(a.tel) || a.cliente.trim().toLowerCase();
+    const c = m.get(k) || { nome: a.cliente.trim(), tel: a.tel || '', visitas: 0, faltas: 0, total: 0, ultima: '', proxima: '', primeira: '' };
+    c.nome = a.cliente.trim(); if (a.tel) c.tel = a.tel;
+    if (a.status === 'concluido') { c.visitas++; c.total += Number(a.valor) || 0; c.ultima = a.data; if (!c.primeira) c.primeira = a.data; }
+    if (a.status === 'faltou') c.faltas++;
+    if (a.status === 'agendado' && a.data >= today() && !c.proxima) c.proxima = a.data + ' ' + a.hora;
+    m.set(k, c);
+  });
+  return [...m.values()].sort((a,b) => a.nome.localeCompare(b.nome, 'pt-BR'));
+}
+
+/* ---------- mensagens ---------- */
+const KINDS = {
+  confirmacao: { key: 'msgConfirmacao', label: 'Confirmação do horário', short: 'Confirmação' },
+  vespera:     { key: 'msgVespera',     label: 'Lembrete da véspera', short: 'Véspera' },
+  dia:         { key: 'msgDia',         label: 'Lembrete do dia', short: 'No dia' }
+};
+const VARS = ['nome','primeiro_nome','servico','dia_semana','data','hora','valor','sinal','endereco','marca'];
+function vars(a) {
+  const nome = (a.cliente || '').trim();
+  return { nome, primeiro_nome: nome.split(/\s+/)[0] || nome, servico: a.servico || '', dia_semana: a.data ? DOW[parse(a.data).getDay()] : '',
+    data: a.data ? fmtData(a.data) : '', hora: a.hora || '', valor: money(a.valor), sinal: a.sinalPago ? money(a.sinal) : '', endereco: D.cfg.endereco || '', marca: D.cfg.marca || '' };
+}
+function fill(tpl, a) {
+  const v = vars(a);
+  return String(tpl || '').split('\n').filter(line => !([...line.matchAll(/\{(\w+)\}/g)].some(m => m[1] in v && !v[m[1]])))
+    .map(line => line.replace(/\{(\w+)\}/g, (m,k) => k in v ? v[k] : m)).join('\n').trim();
+}
+const waLink = (tel, text) => `https://wa.me/${normTel(tel)}?text=${encodeURIComponent(text)}`;
+const ICON_MSG = '<svg width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>';
+function sendBtn(a, kind, opts = {}) {
+  if (!normTel(a.tel)) return `<button class="btn sm ghost" data-a="edit" data-id="${esc(a.id)}">Adicionar WhatsApp</button>`;
+  const text = fill(D.cfg[KINDS[kind].key], a);
+  return `<a class="${opts.soft ? 'btn wa soft sm' : 'btn wa'}" href="${esc(waLink(a.tel, text))}" target="_blank" rel="noopener" data-a="send" data-id="${esc(a.id)}" data-k="${kind}">${ICON_MSG}${esc(opts.label || 'Enviar')}</a>`;
+}
+
+/* ---------- estado da tela ---------- */
+const S = { view: 'agendar', tab: 'hoje', dia: today(), open: null, confirmDel: null, form: null, periodo: 'mes', busca: '', copyText: '', reset: false,
+  c: { svc: null, dia: null, hora: null, feito: null }, pixFalhou: '' };
+const getAg = id => D.ags.find(a => a.id === id);
+function upd(id, patch) { const a = getAg(id); if (a) Object.assign(a, patch); save(); }
+
+/* ---------- cabeçalhos ---------- */
+function logoHTML() {
+  return D.cfg.logo ? `<span class="logo"><img src="${esc(D.cfg.logo)}" alt=""></span>`
+    : `<span class="logo vazio" aria-hidden="true">SUA<br>LOGO</span>`;
+}
+function topoCliente() {
+  return `<header class="topo grande"><div class="wrap">
+    <div class="marca">${logoHTML()}<div><div class="marca-nome">${esc(D.cfg.marca || 'Coloque sua marca')}</div><div class="marca-frase">${esc(D.cfg.frase)}</div></div></div>
+    ${D.cfg.endereco ? `<div class="endereco"><svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="9.5" r="2.5" fill="currentColor"/></svg>${esc(D.cfg.endereco)}</div>` : ''}
+  </div></header>`;
+}
+function topoPainel() {
+  const n = pendencias().total;
+  const t = [['hoje','Hoje', n ? `<span class="badge num">${n}</span>` : ''], ['agenda','Agenda',''], ['clientes','Clientes',''], ['relatorios','Relatórios',''], ['ajustes','Ajustes','']];
+  return `<header class="topo painel"><div class="wrap">
+    <div class="linha-topo"><div class="marca">${logoHTML()}<div class="marca-nome">${esc(D.cfg.marca || 'Coloque sua marca')}</div></div>
+      <a class="btn sm" href="#agendar">Ver página da cliente</a></div>
+    <nav class="tabs" role="tablist">${t.map(([k,l,b]) => `<button role="tab" aria-selected="${S.tab===k}" data-a="tab" data-v="${k}">${l}${b}</button>`).join('')}</nav>
+  </div></header>`;
+}
+
+/* ---------- página da cliente ---------- */
+function viewCliente() {
+  const c = S.c;
+  const fa = c.feito && getAg(c.feito);
+  if (c.feito && !fa) c.feito = null;
+  if (fa && (fa.status === 'aguardando' || fa.status === 'expirado')) return viewPix(fa);
+  if (fa) {
+    const a = fa, dt = parse(a.data);
+    const txt = `Oi! Acabei de agendar ${a.servico} para ${DOW[dt.getDay()]}, ${fmtData(a.data)}, às ${a.hora}. Meu nome é ${a.cliente}.`;
+    return `<section class="resumo">
+      <div class="eyebrow">${a.sinalPago ? 'Horário confirmado' : 'Horário reservado'}</div>
+      <h2 class="passo-h" style="font-size:24px">Tudo certo, ${esc(a.cliente.split(/\s+/)[0])}!</h2>
+      <div class="linha"><span>${esc(a.servico)}</span><b class="num">${esc(money(a.valor))}</b></div>
+      <div class="linha"><span>${DOW[dt.getDay()]}, ${dt.getDate()} de ${MES[dt.getMonth()]}</span><b class="num">${esc(a.hora)} · ${durTxt(a.dur)}</b></div>
+      ${a.sinalPago ? `<div class="linha"><span>Sinal pago</span><span class="pill ok">${esc(money(a.sinal))}</span></div><div class="linha"><span>Restante no dia</span><b class="num">${esc(money(Math.max(0, (Number(a.valor) || 0) - (Number(a.sinal) || 0))))}</b></div>` : ''}
+      <p class="hint">Você vai receber a confirmação pelo WhatsApp. ${D.cfg.endereco ? 'Endereço: ' + esc(D.cfg.endereco) + '.' : ''}</p>
+      <div class="actions">${normTel(D.cfg.whats) ? `<a class="btn wa" href="${esc(waLink(D.cfg.whats, txt))}" target="_blank" rel="noopener">${ICON_MSG}Avisar pelo WhatsApp</a>` : ''}
+        <button class="btn" data-a="c-novo">Fazer outro agendamento</button></div>
+      <p class="hint">Na demonstração, este horário já aparece no <a href="#painel" style="color:inherit">Painel</a>, na aba Hoje.</p>
+    </section>`;
+  }
+  const svc = D.servicos.find(s => s.id === c.svc);
+  const h = today(), dias = [...Array(21)].map((_,i) => addDays(h, i));
+  const lv = svc && c.dia ? livres(c.dia, svc.dur) : [];
+  const turnos = [['Manhã', t => toMin(t) < 720], ['Tarde', t => toMin(t) >= 720 && toMin(t) < 1080], ['Noite', t => toMin(t) >= 1080]];
+  return `
+  <section>
+    <h2 class="passo-h ${svc ? 'feito' : ''}"><span class="n">1</span>Escolha o serviço</h2>
+    ${D.servicos.length ? `<div class="servs">${D.servicos.map(s => `<button class="serv" aria-pressed="${c.svc === s.id}" data-a="c-svc" data-v="${esc(s.id)}">
+      <span><strong>${esc(s.nome)}</strong><span class="sub">${durTxt(Number(s.dur) || 0)}</span></span><span class="preco num">${esc(money(s.valor))}</span></button>`).join('')}</div>`
+      : `<div class="empty"><strong>Nenhum serviço ainda</strong>Cadastre os serviços no Painel, em Ajustes.</div>`}
+  </section>
+  <section ${svc ? '' : 'hidden'}>
+    <h2 class="passo-h ${c.dia ? 'feito' : ''}"><span class="n">2</span>Escolha o dia</h2>
+    <div class="dias" id="dias">${svc ? dias.map(d => { const n = livres(d, svc.dur).length, dt = parse(d);
+      return `<button class="dia" aria-pressed="${c.dia === d}" data-a="c-dia" data-v="${d}" ${n ? '' : 'disabled'}>
+        <span class="d3">${d === h ? 'hoje' : DOW3[dt.getDay()]}</span><span class="dn num">${dt.getDate()}</span><span class="mm">${MES[dt.getMonth()]}</span>
+        <span class="vg num ${n ? '' : 'zero'}">${fechado(d) ? 'fechado' : n ? n + (n === 1 ? ' vaga' : ' vagas') : 'lotado'}</span></button>`; }).join('') : ''}</div>
+  </section>
+  <section ${svc && c.dia ? '' : 'hidden'}>
+    <h2 class="passo-h ${c.hora ? 'feito' : ''}"><span class="n">3</span>Escolha o horário</h2>
+    ${c.dia ? `<p class="hint">${DOW[parse(c.dia).getDay()]}, ${fmtData(c.dia)}</p>` : ''}
+    ${turnos.map(([nome, f]) => { const hs = lv.filter(f); return hs.length ? `<div class="turno"><div class="eyebrow">${nome}</div><div class="horas">${hs.map(t => `<button class="hora" aria-pressed="${c.hora === t}" data-a="c-hora" data-v="${t}">${t}</button>`).join('')}</div></div>` : ''; }).join('')}
+    ${c.dia && !lv.length ? `<p class="hint">Sem horários livres neste dia. Escolha outro.</p>` : ''}
+  </section>
+  ${svc && c.dia && c.hora ? `<section>
+    <form id="f-cli" class="resumo" novalidate>
+      <div class="eyebrow">Seus dados</div>
+      <div class="linha"><span>${esc(svc.nome)} · ${diaCurto(c.dia)} às ${esc(c.hora)}</span><b class="num">${esc(money(svc.valor))}</b></div>
+      ${valorSinal(svc) ? `<div class="notice" style="background:var(--accent-soft);color:var(--ink)">Para garantir o horário, você paga um sinal de <b>${esc(money(valorSinal(svc)))}</b> por Pix na próxima tela. O valor é descontado no dia.</div>` : ''}
+      <div class="grid2">
+        <label>Seu nome<input id="c-nome" autocomplete="name" placeholder="Nome e sobrenome"></label>
+        <label>Seu WhatsApp<input id="c-tel" inputmode="tel" autocomplete="tel" placeholder="(11) 98765-4321"></label>
+      </div>
+      <div id="c-warn"></div>
+      <div class="actions"><button class="btn primary big" type="submit">${valorSinal(svc) ? 'Reservar e pagar o sinal' : 'Confirmar agendamento'}</button></div>
+    </form></section>` : ''}`;
+}
+
+function viewPix(a) {
+  const exp = a.status === 'expirado', dt = parse(a.data), temChave = !!chavePix();
+  const payload = temChave ? pixPayload(a.sinal, 'AG' + a.id) : '';
+  const resto = Math.max(0, (Number(a.valor) || 0) - (Number(a.sinal) || 0));
+  const txt = `Oi! Fiz o Pix do sinal de ${money(a.sinal)} para ${a.servico} em ${DOW[dt.getDay()]}, ${fmtData(a.data)}, às ${a.hora}. Meu nome é ${a.cliente}. Segue o comprovante:`;
+  return `<section class="resumo">
+    <div class="eyebrow">${exp ? 'Reserva expirada' : 'Falta só o sinal'}</div>
+    <h2 class="passo-h" style="font-size:24px">${exp ? 'O prazo para pagar acabou' : 'Pague o sinal para garantir seu horário'}</h2>
+    <div class="linha"><span>${esc(a.servico)}</span><b class="num">${esc(money(a.valor))}</b></div>
+    <div class="linha"><span>${DOW[dt.getDay()]}, ${dt.getDate()} de ${MES[dt.getMonth()]}</span><b class="num">${esc(a.hora)} · ${durTxt(a.dur)}</b></div>
+    <div class="linha"><span>Sinal agora, por Pix</span><b class="valor-sinal num">${esc(money(a.sinal))}</b></div>
+    ${resto ? `<div class="linha"><span>Restante no dia</span><b class="num">${esc(money(resto))}</b></div>` : ''}
+    ${exp ? `<p class="hint">A vaga foi liberada para outras clientes. Se ainda quiser, escolha o horário de novo.</p>
+      <div class="actions"><button class="btn primary" data-a="c-novo">Escolher outro horário</button></div>` : `
+    <div class="pix">
+      <div class="qr ${temChave ? '' : 'exemplo'}"><div id="qr-in"></div>${temChave ? '' : '<span class="qr-aviso">Coloque sua chave Pix em Ajustes</span>'}</div>
+      <div style="display:grid;gap:10px;min-width:0">
+        <div><div class="eyebrow">Horário reservado por</div><div class="contador num" data-exp="${esc(a.expira)}">${fmtLeft(minsLeft(a))}</div></div>
+        <p class="hint">Abra o app do seu banco, escolha Pix e leia o QR Code, ou copie o código abaixo e use o Pix copia e cola.</p>
+        <div class="copia" id="copia">${temChave ? esc(payload) : 'O código Pix aparece aqui quando a chave for cadastrada em Ajustes.'}</div>
+        <div class="actions"><button class="btn primary" data-a="pix-copy" ${temChave ? '' : 'disabled'}>Copiar código Pix</button>
+          ${normTel(D.cfg.whats) ? `<a class="btn wa" href="${esc(waLink(D.cfg.whats, txt))}" target="_blank" rel="noopener">${ICON_MSG}Enviar comprovante</a>` : ''}</div>
+      </div>
+    </div>
+    ${D.cfg.politica ? `<p class="hint">${esc(D.cfg.politica)}</p>` : ''}
+    <p class="hint">Assim que o Pix for conferido, seu horário é confirmado e você recebe a mensagem no WhatsApp.</p>
+    <p class="hint">Na demonstração: confirme o sinal no <a href="#painel" style="color:inherit">Painel</a>, na aba Hoje, e volte aqui.</p>`}
+  </section>`;
+}
+function desenhaQR() {
+  const el = $('#qr-in'); if (!el || !window.QRCode) return;
+  const a = getAg(S.c.feito); if (!a) return;
+  const txt = pixPayload(a.sinal, 'AG' + a.id) || pixPayload(a.sinal, 'EXEMPLO', 'exemplo@suamarca.com.br');
+  try { new QRCode(el, { text: txt, width: 180, height: 180, colorDark: '#1B1712', colorLight: '#FFFFFF', correctLevel: QRCode.CorrectLevel.M }); } catch {}
+}
+
+/* ---------- painel: hoje ---------- */
+function statusPills(a) {
+  if (isBloq(a)) return `<span class="pill mute">Bloqueado${a.obs ? ' · ' + esc(a.obs) : ''}</span>`;
+  const s = { concluido: '<span class="pill ok">Concluído</span>', faltou: '<span class="pill bad">Faltou</span>', cancelado: '<span class="pill mute">Cancelado</span>' }[a.status];
+  const link = (a.sinalPago ? `<span class="pill ok">Sinal ${esc(money(a.sinal))} pago</span>` : '') + (a.origem === 'link' ? '<span class="pill mute">pelo link</span>' : '');
+  if (a.status === 'aguardando') return `<span class="pill warn">Aguardando sinal ${esc(money(a.sinal))} ·&nbsp;<span data-exp="${esc(a.expira)}">${fmtLeft(minsLeft(a))}</span></span>` + link;
+  if (a.status === 'expirado') return '<span class="pill mute">Sinal não pago · vaga liberada</span>' + link;
+  if (s) return s + link;
+  if (a.confirmou) return '<span class="pill ok">Cliente confirmou</span>' + link;
+  if (a.enviados && a.enviados.confirmacao) return '<span class="pill warn">Aguardando resposta</span>' + link;
+  return '<span class="pill">Confirmação não enviada</span>' + link;
+}
+function viewHoje() {
+  const p = pendencias(), h = today(), am = addDays(h,1), dt = parse(h);
+  const real = D.ags.filter(a => !isBloq(a));
+  const hojeAg = real.filter(a => a.data === h).sort((x,y) => x.hora.localeCompare(y.hora));
+  const amanha = real.filter(a => a.data === am && ativo(a)).length;
+  const link24 = real.filter(a => a.origem === 'link' && a.criado && Date.now() - new Date(a.criado).getTime() < 864e5).length;
+  const bloco = (k, titulo, dica, arr) => !arr.length ? '' : `
+    <section><div class="sec-head"><h2>${titulo} <span class="hint num" style="display:inline">· ${arr.length}</span></h2><span class="hint">${dica}</span></div>
+    <div class="list">${arr.map(a => `<div class="row"><div class="row-main"><strong>${esc(a.cliente)}</strong>
+      <span class="sub num">${esc(a.servico)} · ${diaCurto(a.data)} às ${esc(a.hora)}</span></div>${sendBtn(a, k)}</div>`).join('')}</div></section>`;
+  return `
+  <section><div class="eyebrow">${DOW[dt.getDay()]}, ${dt.getDate()} de ${MES[dt.getMonth()]}</div>
+    <div class="stats">
+      <div class="stat"><b class="num">${hojeAg.filter(ativo).length}</b><span>atendimentos hoje</span></div>
+      <div class="stat"><b class="num">${amanha}</b><span>marcados para amanhã</span></div>
+      <div class="stat"><b class="num">${link24}</b><span>agendados pelo link nas últimas 24 h</span></div>
+      <div class="stat"><b class="num">${p.total}</b><span>mensagens para enviar</span></div>
+    </div>
+    <p class="hint">Tocar em <b>Enviar</b> abre o WhatsApp com o texto pronto e tira o item da lista. Se você não chegou a mandar, desfaça no horário, na Agenda.</p></section>
+  ${p.sinal.length ? `<section><div class="sec-head"><h2>Sinal para conferir <span class="hint num" style="display:inline">· ${p.sinal.length}</span></h2><span class="hint">confira o Pix no banco</span></div>
+    <div class="list">${p.sinal.map(a => `<div class="row hj"><div class="row-main"><strong>${esc(a.cliente)}</strong>
+      <span class="sub num">${esc(a.servico)} · ${diaCurto(a.data)} às ${esc(a.hora)}</span>
+      <div class="pills"><span class="pill warn">Sinal ${esc(money(a.sinal))} · vaga liberada em&nbsp;<span data-exp="${esc(a.expira)}">${fmtLeft(minsLeft(a))}</span></span></div></div>
+      <div class="actions"><button class="btn sm primary" data-a="sinal-ok" data-id="${esc(a.id)}">Sinal recebido</button><button class="btn sm ghost" data-a="st" data-id="${esc(a.id)}" data-v="cancelado">Cancelar</button></div></div>`).join('')}</div></section>` : ''}
+  ${bloco('confirmacao','Confirmar horário','agendamentos novos ou remarcados', p.confirmacao)}
+  ${bloco('vespera','Lembrete de amanhã','mandar hoje', p.vespera)}
+  ${bloco('dia','Lembrete de hoje','antes do horário', p.dia)}
+  ${!p.total ? `<div class="empty"><strong>Tudo em dia</strong>Quando chegar agendamento novo ou houver lembrete para mandar, ele aparece aqui.</div>` : ''}
+  <section><div class="sec-head"><h2>Atendimentos de hoje</h2><button class="btn sm" data-a="novo" data-v="${h}">+ Novo horário</button></div>
+    ${hojeAg.length ? `<div class="list">${hojeAg.map(a => `<div class="row hj"><span class="time num">${esc(a.hora)}</span>
+      <div class="row-main"><strong>${esc(a.cliente)}</strong><span class="sub">${esc(a.servico)}</span><div class="pills">${statusPills(a)}</div></div>
+      ${a.status === 'agendado' ? `<div class="actions"><button class="btn sm" data-a="st" data-id="${esc(a.id)}" data-v="concluido">Concluído</button><button class="btn sm" data-a="st" data-id="${esc(a.id)}" data-v="faltou">Faltou</button></div>` : ''}</div>`).join('')}</div>`
+      : `<div class="empty">Nenhum atendimento marcado para hoje.</div>`}
+  </section>`;
+}
+
+/* ---------- painel: agenda ---------- */
+function viewAgenda() {
+  if (S.form) return viewForm();
+  const d = parse(S.dia), off = (d.getDay() + 6) % 7, ini = addDays(S.dia, -off), h = today();
+  const dias = [...Array(7)].map((_,i) => addDays(ini, i)), fim = parse(dias[6]);
+  const doDia = D.ags.filter(a => a.data === S.dia).sort((x,y) => x.hora.localeCompare(y.hora));
+  const lv = livres(S.dia);
+  return `
+  <section>
+    <div class="weeknav"><button class="btn sm" data-a="week" data-v="-7" aria-label="Semana anterior">‹</button>
+      <h2 class="num">${parse(ini).getDate()} ${MES[parse(ini).getMonth()]} – ${fim.getDate()} ${MES[fim.getMonth()]}</h2>
+      <div class="actions"><button class="btn sm" data-a="day" data-v="${h}">Hoje</button><button class="btn sm" data-a="week" data-v="7" aria-label="Próxima semana">›</button></div></div>
+    <div class="semana">${dias.map(x => { const n = D.ags.filter(a => a.data === x && ativo(a) && !isBloq(a)).length, dd = parse(x);
+      return `<button class="diasem ${fechado(x) ? 'fechado' : ''} ${x === h ? 'hoje' : ''}" aria-pressed="${x === S.dia}" data-a="day" data-v="${x}">
+        <span class="d3">${DOW3[dd.getDay()]}</span><span class="dn num">${dd.getDate()}</span><span class="dc num">${n ? n + ' hor.' : ''}</span></button>`; }).join('')}</div>
+  </section>
+  <section>
+    <div class="sec-head"><h2>${DOW[d.getDay()]}, ${fmtData(S.dia)}</h2>
+      <div class="actions"><button class="btn sm" data-a="bloq" data-v="${S.dia}">Bloquear horário</button><button class="btn sm primary" data-a="novo" data-v="${S.dia}">+ Novo horário</button></div></div>
+    ${S.dia >= h ? (fechado(S.dia) ? `<p class="hint">Dia marcado como fechado em Ajustes.</p>`
+      : lv.length ? `<div style="display:grid;gap:6px"><div class="eyebrow">Livres · toque para encaixar</div><div class="chips">${lv.map(t => `<button class="chip" data-a="slot" data-v="${t}">${t}</button>`).join('')}</div></div>`
+      : `<p class="hint">Dia lotado.</p>`) : ''}
+    ${doDia.length ? `<div class="cards">${doDia.map(card).join('')}</div>` : `<div class="empty">Nenhum horário marcado neste dia.</div>`}
+  </section>
+  <section class="panel">
+    <h2>Divulgar horários livres</h2>
+    <p class="hint">Copia os horários livres dos próximos 7 dias num texto pronto para o status ou uma conversa.</p>
+    <div class="actions"><button class="btn" data-a="copy-free">Copiar horários livres</button></div>
+    ${S.copyText ? `<textarea class="copybox" id="copybox" readonly>${esc(S.copyText)}</textarea>` : ''}
+  </section>`;
+}
+function card(a) {
+  const id = esc(a.id), open = S.open === a.id, env = a.enviados || {};
+  let more = '';
+  if (open) {
+    const kinds = !isBloq(a) && a.status === 'agendado' ? ['confirmacao','vespera','dia'] : [];
+    more = `<div class="more">
+      ${a.tel ? `<div class="sub num">WhatsApp: ${esc(fmtTel(a.tel))}</div>` : ''}
+      ${a.obs && !isBloq(a) ? `<div class="sub">Obs.: ${esc(a.obs)}</div>` : ''}
+      ${kinds.length ? `<div class="grp"><span class="lbl">Mensagens</span>${kinds.map(k => env[k]
+        ? `<span class="sent">✓ ${KINDS[k].short} ${fmtStamp(env[k])}</span><button class="btn ghost sm" data-a="unsend" data-id="${id}" data-k="${k}">desfazer</button>`
+        : sendBtn(a, k, { soft: true, label: KINDS[k].short })).join('')}</div>` : ''}
+      ${kinds.length ? `<label class="check"><input type="checkbox" id="conf-${id}" data-a="confirmou" data-id="${id}" ${a.confirmou ? 'checked' : ''}> Cliente confirmou</label>` : ''}
+      <div class="grp"><span class="lbl">Situação</span>
+        ${a.status === 'aguardando' ? `<button class="btn sm primary" data-a="sinal-ok" data-id="${id}">Sinal recebido</button><button class="btn sm" data-a="st" data-id="${id}" data-v="cancelado">Cancelar</button>`
+          : a.status === 'agendado' ? (isBloq(a) ? '' : `<button class="btn sm" data-a="st" data-id="${id}" data-v="concluido">Concluído</button><button class="btn sm" data-a="st" data-id="${id}" data-v="faltou">Faltou</button>`)
+          + `<button class="btn sm" data-a="st" data-id="${id}" data-v="cancelado">${isBloq(a) ? 'Liberar horário' : 'Cancelar'}</button>`
+          : `<button class="btn sm" data-a="st" data-id="${id}" data-v="agendado">Voltar para agendado</button>`}
+        <button class="btn sm" data-a="edit" data-id="${id}">Editar ou remarcar</button>
+        ${S.confirmDel === a.id ? `<span class="sub">Excluir de vez?</span><button class="btn sm danger" data-a="del-yes" data-id="${id}">Excluir</button><button class="btn sm ghost" data-a="del-no">Manter</button>`
+          : `<button class="btn sm ghost" data-a="del" data-id="${id}">Excluir</button>`}
+      </div></div>`;
+  }
+  return `<div class="card st-${esc(a.status)} ${isBloq(a) ? 'bloqueio' : ''}">
+    <div class="t num"><b>${esc(a.hora)}</b><span>${a.dur ? a.dur + ' min' : ''}</span></div>
+    <button class="body" data-a="open" data-id="${id}" aria-expanded="${open}">
+      <strong>${isBloq(a) ? 'Horário bloqueado' : esc(a.cliente)}</strong>
+      <div class="sub">${isBloq(a) ? esc(a.obs || '') : esc([a.servico, money(a.valor)].filter(Boolean).join(' · '))}</div>
+      <div class="pills">${statusPills(a)}</div></button>${more}</div>`;
+}
+function svcOptions(cur) {
+  const names = D.servicos.map(s => s.nome), extra = cur && !names.includes(cur) ? [cur] : [];
+  return [...names, ...extra].map(n => `<option ${n === cur ? 'selected' : ''}>${esc(n)}</option>`).join('');
+}
+function abrirForm(pre = {}) {
+  const sv = D.servicos[0] || {};
+  S.form = { id: null, cliente: '', tel: '', servico: sv.nome || '', data: S.dia, hora: '', dur: sv.dur || 60, valor: sv.valor ?? '', obs: '', bloqueio: false, ...pre };
+  if (S.form.bloqueio && !pre.dur) S.form.dur = 60;
+  S.tab = 'agenda'; render(); window.scrollTo(0,0);
+}
+function viewForm() {
+  const f = S.form, cl = clientes();
+  return `<form id="f-ag" class="panel" novalidate>
+    <h2>${f.id ? 'Editar horário' : f.bloqueio ? 'Bloquear horário' : 'Novo horário'}</h2>
+    <label class="check"><input type="checkbox" id="ag-bloq" ${f.bloqueio ? 'checked' : ''}> Bloquear horário (almoço, folga, compromisso)</label>
+    <div class="grid2" id="ag-cli-box" ${f.bloqueio ? 'hidden' : ''}>
+      <label>Cliente<input id="ag-cliente" list="ag-clientes" autocomplete="off" value="${esc(f.cliente)}" placeholder="Nome da cliente"></label>
+      <label>WhatsApp<input id="ag-tel" inputmode="tel" value="${esc(f.tel)}" placeholder="(11) 98765-4321"></label>
+    </div>
+    <datalist id="ag-clientes">${cl.map(c => `<option value="${esc(c.nome)}">`).join('')}</datalist>
+    <div class="grid2" id="ag-svc-box" ${f.bloqueio ? 'hidden' : ''}>
+      <label>Serviço<select id="ag-servico">${svcOptions(f.servico)}</select></label>
+      <label>Valor<input id="ag-valor" inputmode="decimal" value="${esc(f.valor === null ? '' : String(f.valor).replace('.', ','))}" placeholder="R$"></label>
+    </div>
+    <div class="grid2">
+      <label>Dia<input id="ag-data" type="date" value="${esc(f.data)}"></label>
+      <label>Hora<input id="ag-hora" type="time" step="300" value="${esc(f.hora)}"></label>
+      <label>Duração (min)<input id="ag-dur" type="number" min="5" step="5" value="${esc(f.dur)}"></label>
+    </div>
+    <label>${f.bloqueio ? 'Motivo' : 'Observações'}<input id="ag-obs" value="${esc(f.obs)}" placeholder="${f.bloqueio ? 'Ex.: almoço, folga' : 'Ex.: primeira vez, alergia, preferências'}"></label>
+    <div id="ag-warn"></div>
+    <div class="actions"><button class="btn primary" type="submit">${f.id ? 'Salvar alterações' : 'Salvar horário'}</button><button class="btn" type="button" data-a="form-sair">Voltar</button></div>
+  </form>`;
+}
+function wireForm() {
+  const g = id => document.getElementById(id);
+  if (!g('f-ag')) return;
+  const check = () => {
+    const data = g('ag-data').value, hora = g('ag-hora').value, dur = Number(g('ag-dur').value) || 0, msgs = [];
+    if (data && hora) {
+      const c = conflitos(data, hora, dur, S.form.id);
+      if (c.length) msgs.push(`Choca com ${c.map(a => `${isBloq(a) ? 'um bloqueio' : esc(a.cliente)} (${esc(a.hora)})`).join(', ')}.`);
+      if (fechado(data)) msgs.push('Este dia está marcado como fechado.');
+      if (toMin(hora) < toMin(D.cfg.abre) || toMin(hora) + dur > toMin(D.cfg.fecha)) msgs.push(`Fora do horário de atendimento (${esc(D.cfg.abre)} às ${esc(D.cfg.fecha)}).`);
+      if (data < today()) msgs.push('Esta data já passou.');
+    }
+    g('ag-warn').innerHTML = msgs.length ? `<div class="notice">${msgs.join(' ')} Dá para salvar mesmo assim.</div>` : '';
+  };
+  g('ag-bloq').addEventListener('change', e => { g('ag-cli-box').hidden = e.target.checked; g('ag-svc-box').hidden = e.target.checked; });
+  g('ag-servico').addEventListener('change', e => { const s = D.servicos.find(x => x.nome === e.target.value); if (s) { g('ag-dur').value = s.dur; g('ag-valor').value = s.valor == null ? '' : String(s.valor).replace('.', ','); } check(); });
+  g('ag-cliente').addEventListener('change', e => { const c = clientes().find(x => x.nome.toLowerCase() === e.target.value.trim().toLowerCase()); if (c && !g('ag-tel').value) g('ag-tel').value = fmtTel(c.tel); });
+  g('ag-tel').addEventListener('blur', e => { e.target.value = fmtTel(e.target.value); });
+  ['ag-data','ag-hora','ag-dur'].forEach(id => g(id).addEventListener('input', check));
+  g('f-ag').addEventListener('submit', e => {
+    e.preventDefault();
+    const bloq = g('ag-bloq').checked;
+    const doc = { cliente: bloq ? '' : g('ag-cliente').value.trim(), tel: bloq ? '' : fmtTel(g('ag-tel').value), servico: bloq ? '' : g('ag-servico').value,
+      data: g('ag-data').value, hora: g('ag-hora').value, dur: Number(g('ag-dur').value) || 0, valor: bloq ? null : parseMoney(g('ag-valor').value),
+      obs: g('ag-obs').value.trim(), tipo: bloq ? 'bloqueio' : 'atendimento' };
+    const falta = [];
+    if (!bloq && !doc.cliente) falta.push('o nome da cliente');
+    if (!doc.data) falta.push('o dia'); if (!doc.hora) falta.push('a hora'); if (!doc.dur) falta.push('a duração');
+    if (falta.length) { g('ag-warn').innerHTML = `<div class="notice">Falta preencher ${falta.join(', ')}.</div>`; return; }
+    if (!bloq && doc.tel && !normTel(doc.tel)) { g('ag-warn').innerHTML = `<div class="notice">O WhatsApp precisa ter DDD e número, por exemplo (11) 98765-4321.</div>`; return; }
+    if (S.form.id) {
+      const old = getAg(S.form.id) || {};
+      const patch = { ...doc };
+      if (old.data !== doc.data || old.hora !== doc.hora) { patch.enviados = {}; patch.confirmou = false; }
+      upd(S.form.id, patch); toast('Horário atualizado');
+    } else {
+      D.ags.push({ ...doc, id: uid(), status: 'agendado', origem: 'painel', confirmou: false, enviados: {}, criado: new Date().toISOString() }); save();
+      toast(bloq ? 'Horário bloqueado' : 'Horário salvo. A confirmação ficou na aba Hoje.');
+    }
+    S.dia = doc.data; S.form = null; render();
+  });
+  check();
+}
+
+/* ---------- painel: clientes ---------- */
+function viewClientes() {
+  const q = S.busca.trim().toLowerCase();
+  const lista = clientes().filter(c => !q || c.nome.toLowerCase().includes(q) || digits(c.tel).includes(digits(q) || '§'));
+  return `<section>
+    <div class="sec-head"><h2>Clientes <span class="hint num" style="display:inline">· ${clientes().length}</span></h2></div>
+    <label>Buscar<input id="busca" type="search" value="${esc(S.busca)}" placeholder="Nome ou WhatsApp"></label>
+    ${lista.length ? `<div class="list">${lista.map(c => `<div class="row"><div class="row-main"><strong>${esc(c.nome)}</strong>
+      <span class="sub num">${c.visitas} ${c.visitas === 1 ? 'atendimento' : 'atendimentos'}${c.total ? ' · ' + money(c.total) : ''}${c.faltas ? ' · ' + c.faltas + (c.faltas === 1 ? ' falta' : ' faltas') : ''}</span>
+      <span class="sub num">${c.proxima ? 'Próximo: ' + diaCurto(c.proxima.slice(0,10)) + ' às ' + c.proxima.slice(11) : c.ultima ? 'Última vez: ' + fmtData(c.ultima) + ' (' + diffDays(c.ultima, today()) + ' dias)' : 'Sem atendimento concluído'}</span></div>
+      <div class="actions">${normTel(c.tel) ? `<a class="btn wa soft sm" href="${esc(waLink(c.tel, 'Oi, ' + c.nome.split(/\s+/)[0] + '!'))}" target="_blank" rel="noopener">${ICON_MSG}WhatsApp</a>` : ''}
+      <button class="btn sm" data-a="novo-cli" data-v="${esc(c.nome)}" data-t="${esc(c.tel)}">Agendar</button></div></div>`).join('')}</div>`
+      : `<div class="empty">${q ? 'Nenhuma cliente com esse nome ou número.' : 'As clientes aparecem aqui conforme os horários são marcados.'}</div>`}
+  </section>`;
+}
+
+/* ---------- painel: relatórios ---------- */
+const PERIODOS = [['mes','Este mês'],['passado','Mês passado'],['30','30 dias'],['90','90 dias'],['ano','Este ano'],['prox','Próximos 30 dias'],['tudo','Tudo']];
+function intervalo(p) {
+  const h = today(), d = parse(h), y = d.getFullYear(), m = d.getMonth();
+  const fimMes = (yy, mm) => ds(new Date(yy, mm + 1, 0));
+  switch (p) {
+    case 'mes': return [ds(new Date(y, m, 1)), fimMes(y, m)];
+    case 'passado': return [ds(new Date(y, m - 1, 1)), fimMes(y, m - 1)];
+    case '30': return [addDays(h, -29), h];
+    case '90': return [addDays(h, -89), h];
+    case 'ano': return [`${y}-01-01`, `${y}-12-31`];
+    case 'prox': return [h, addDays(h, 29)];
+    default: return ['0000-01-01', '9999-12-31'];
+  }
+}
+function viewRelatorios() {
+  const [a0, a1] = intervalo(S.periodo);
+  const real = D.ags.filter(a => !isBloq(a));
+  const no = real.filter(a => a.data >= a0 && a.data <= a1);
+  const conc = no.filter(a => a.status === 'concluido'), aberto = no.filter(a => a.status === 'agendado');
+  const falt = no.filter(a => a.status === 'faltou'), canc = no.filter(a => a.status === 'cancelado');
+  const fat = conc.reduce((s,a) => s + (Number(a.valor) || 0), 0), prev = aberto.reduce((s,a) => s + (Number(a.valor) || 0), 0);
+  const deviam = conc.length + falt.length;
+  const atendidas = new Set(conc.map(a => digits(a.tel) || a.cliente.toLowerCase()));
+  const primeiras = new Map(); real.filter(a => a.status === 'concluido').sort((x,y) => x.data.localeCompare(y.data)).forEach(a => { const k = digits(a.tel) || a.cliente.toLowerCase(); if (!primeiras.has(k)) primeiras.set(k, a.data); });
+  const novas = [...atendidas].filter(k => { const p = primeiras.get(k); return p >= a0 && p <= a1; }).length;
+  const validos = no.filter(a => a.status !== 'cancelado'), pelolink = validos.filter(a => a.origem === 'link').length;
+  const pagos = no.filter(a => a.sinalPago), somaSinal = pagos.reduce((s,a) => s + (Number(a.sinal) || 0), 0);
+  const aguard = no.filter(a => a.status === 'aguardando').length, expir = no.filter(a => a.status === 'expirado').length;
+  const feitos = real.filter(a => a.criado && a.criado.slice(0,10) >= a0 && a.criado.slice(0,10) <= a1).length;
+  const porSvc = {}; no.filter(a => a.status !== 'cancelado').forEach(a => { porSvc[a.servico] = (porSvc[a.servico] || 0) + 1; });
+  const top = Object.entries(porSvc).sort((x,y) => y[1] - x[1]), max = top.length ? top[0][1] : 1;
+  const st = (n, l, s) => `<div class="stat"><b class="num">${n}</b><span>${l}</span>${s ? `<small>${s}</small>` : ''}</div>`;
+  const pct = (a,b) => b ? Math.round(a / b * 100) + '%' : '0%';
+  const lbl = PERIODOS.find(p => p[0] === S.periodo)[1];
+  return `<section>
+    <div class="sec-head"><h2>Relatórios</h2></div>
+    <div class="periodo">${PERIODOS.map(([k,l]) => `<button aria-pressed="${S.periodo === k}" data-a="periodo" data-v="${k}">${l}</button>`).join('')}</div>
+    <p class="hint">${lbl}${S.periodo === 'tudo' ? '' : ': ' + fmtData(a0) + ' a ' + fmtData(a1)}. Contado pela data do atendimento.</p>
+    <div class="stats">
+      ${st(no.length, 'horários no período', `${conc.length} concluídos · ${aberto.length} em aberto`)}
+      ${st(money(fat) || 'R$ 0,00', 'faturamento', 'só atendimentos concluídos')}
+      ${st(conc.length ? money(fat / conc.length) : '–', 'ticket médio')}
+      ${st(money(prev) || 'R$ 0,00', 'previsto em aberto', `${aberto.length} horários ainda não atendidos`)}
+      ${st(falt.length, 'faltas', `${pct(falt.length, deviam)} de quem devia vir`)}
+      ${st(canc.length, 'cancelamentos')}
+      ${st(atendidas.size, 'clientes atendidas', `${novas} ${novas === 1 ? 'nova' : 'novas'} no período`)}
+      ${st(pct(pelolink, validos.length), 'agendados pelo link', `${pelolink} de ${validos.length}`)}
+      ${st(feitos, 'agendamentos feitos no período', 'pela data em que foram marcados')}
+      ${st(money(somaSinal) || 'R$ 0,00', 'sinais recebidos por Pix', `${pagos.length} pagos · ${aguard} aguardando · ${expir} não pagos`)}
+    </div>
+  </section>
+  <section class="panel"><h2>Serviços mais marcados</h2>
+    ${top.length ? `<div class="barras">${top.map(([n,q]) => `<div class="barra"><span>${esc(n)}</span><b class="num">${q}</b><div class="trilho"><i style="width:${Math.max(4, q / max * 100)}%"></i></div></div>`).join('')}</div>`
+      : `<p class="hint">Nenhum horário neste período.</p>`}
+  </section>`;
+}
+
+/* ---------- painel: ajustes ---------- */
+function viewAjustes() {
+  const c = D.cfg, dias = [1,2,3,4,5,6,0];
+  return `
+  <form id="f-marca" class="panel" novalidate>
+    <h2>Sua marca</h2>
+    <p class="hint">Aparece na página de agendamento, no painel e nas mensagens.</p>
+    <div class="grid2">
+      <label>Nome da marca<input id="m-marca" value="${esc(c.marca)}" placeholder="Coloque sua marca"></label>
+      <label>Frase abaixo do nome<input id="m-frase" value="${esc(c.frase)}" placeholder="agende seu horário"></label>
+    </div>
+    <div class="grid2">
+      <label>Endereço<input id="m-end" value="${esc(c.endereco)}" placeholder="Rua, número, bairro"></label>
+      <label>WhatsApp do negócio<input id="m-whats" inputmode="tel" value="${esc(c.whats)}" placeholder="(11) 98765-4321"></label>
+    </div>
+    <div class="grid2">
+      <label>Cor da marca<input id="m-cor" type="color" value="${esc(c.cor)}"></label>
+      <label>Logo (imagem quadrada)<input id="m-logo" type="file" accept="image/*"></label>
+    </div>
+    <div class="actions"><button class="btn primary" type="submit">Salvar marca</button>${c.logo ? `<button class="btn ghost sm" type="button" data-a="logo-off">Tirar logo</button>` : ''}</div>
+  </form>
+
+  <form id="f-hor" class="panel" novalidate>
+    <h2>Horário de atendimento</h2>
+    <div class="grid2">
+      <label>Abre às<input id="h-abre" type="time" value="${esc(c.abre)}"></label>
+      <label>Fecha às<input id="h-fecha" type="time" value="${esc(c.fecha)}"></label>
+      <label>Horários a cada (min)<input id="h-passo" type="number" min="5" step="5" value="${esc(c.passo)}"></label>
+    </div>
+    <div style="display:grid;gap:6px"><div class="eyebrow">Dias fechados</div>
+      <div class="fechados">${dias.map(d => `<label><input type="checkbox" id="h-f${d}" ${(c.fechados || []).includes(d) ? 'checked' : ''}>${DOW3[d]}</label>`).join('')}</div></div>
+    <div class="actions"><button class="btn primary" type="submit">Salvar horário</button></div>
+  </form>
+
+  <form id="f-pix" class="panel" novalidate>
+    <h2>Sinal por Pix</h2>
+    <p class="hint">Com o sinal ligado, o horário marcado pelo link fica reservado até a cliente pagar. Se o prazo acabar, a vaga é liberada sozinha. Horários que você marca pelo painel não pedem sinal.</p>
+    <label class="check"><input type="checkbox" id="x-on" ${c.pixAtivo ? 'checked' : ''}> Pedir sinal para agendar pelo link</label>
+    <div class="grid2">
+      <label>Tipo de chave<select id="x-tipo">${[['cel','Celular'],['cpf','CPF ou CNPJ'],['email','E-mail'],['aleatoria','Chave aleatória']].map(([k,l]) => `<option value="${k}" ${c.pixTipo === k ? 'selected' : ''}>${l}</option>`).join('')}</select></label>
+      <label>Chave Pix<input id="x-chave" value="${esc(c.pixChave)}" placeholder="Sua chave Pix"></label>
+    </div>
+    <div class="grid2">
+      <label>Nome de quem recebe<input id="x-nome" value="${esc(c.pixNome)}" placeholder="Como aparece no banco"></label>
+      <label>Cidade<input id="x-cid" value="${esc(c.pixCidade)}" placeholder="São Paulo"></label>
+    </div>
+    <div class="grid2">
+      <label>Tipo de sinal<select id="x-st"><option value="fixo" ${c.sinalTipo !== 'pct' ? 'selected' : ''}>Valor fixo (R$)</option><option value="pct" ${c.sinalTipo === 'pct' ? 'selected' : ''}>Porcentagem do serviço (%)</option></select></label>
+      <label>Valor do sinal<input id="x-val" inputmode="decimal" value="${esc(String(c.sinalValor ?? '').replace('.', ','))}" placeholder="30"></label>
+      <label>Prazo para pagar (min)<input id="x-prazo" type="number" min="5" step="5" value="${esc(c.prazoMin)}"></label>
+    </div>
+    <label>Política do sinal (aparece para a cliente)<textarea id="x-pol">${esc(c.politica)}</textarea></label>
+    <div class="actions"><button class="btn primary" type="submit">Salvar sinal</button></div>
+  </form>
+
+  <section class="panel">
+    <h2>Seus serviços</h2>
+    <p class="hint">Troque "Defina seu serviço" pelos seus. A duração define o tamanho do horário e quais vagas aparecem para a cliente.</p>
+    <div>${D.servicos.map(s => `<div class="svc-row">
+      <label>Serviço<input id="sv-n-${esc(s.id)}" data-svc="${esc(s.id)}" data-f="nome" value="${esc(s.nome)}"></label>
+      <label>Min<input id="sv-d-${esc(s.id)}" data-svc="${esc(s.id)}" data-f="dur" type="number" min="5" step="5" value="${esc(s.dur)}"></label>
+      <label>Valor<input id="sv-v-${esc(s.id)}" data-svc="${esc(s.id)}" data-f="valor" inputmode="decimal" value="${esc(s.valor == null ? '' : String(s.valor).replace('.', ','))}" placeholder="R$"></label>
+      <button class="btn sm ghost" type="button" data-a="svc-del" data-id="${esc(s.id)}">Remover</button></div>`).join('') || `<div class="empty">Nenhum serviço ainda. Adicione o primeiro abaixo.</div>`}</div>
+    <form id="f-svc" class="svc-row" style="border-top:1px solid var(--line);padding-top:12px" novalidate>
+      <label>Novo serviço<input id="s-nome" placeholder="Defina seu serviço"></label>
+      <label>Min<input id="s-dur" type="number" min="5" step="5" value="60"></label>
+      <label>Valor<input id="s-valor" inputmode="decimal" placeholder="R$"></label>
+      <button class="btn" type="submit">Adicionar</button>
+    </form>
+  </section>
+
+  <form id="f-msg" class="panel" novalidate>
+    <h2>Mensagens do WhatsApp</h2>
+    <p class="hint">Toque numa etiqueta para inserir no texto. Uma linha cuja informação estiver vazia some da mensagem.</p>
+    <div class="vars">${VARS.map(v => `<button type="button" data-a="ins" data-v="{${v}}">{${v}}</button>`).join('')}</div>
+    ${Object.entries(KINDS).map(([k,o]) => `<label>${o.label}<textarea id="t-${k}">${esc(c[o.key])}</textarea></label><div class="preview" id="p-${k}"></div>`).join('')}
+    <div class="actions"><button class="btn primary" type="submit">Salvar mensagens</button><button class="btn" type="button" data-a="msg-reset">Voltar aos textos sugeridos</button></div>
+  </form>
+
+  <section class="panel">
+    <h2>Dados de exemplo</h2>
+    <p class="hint">Esta demonstração guarda tudo neste navegador. Restaurar apaga suas alterações e volta para a marca, os serviços e os horários de exemplo.</p>
+    <div class="actions">${S.reset ? `<span class="sub">Apagar tudo e restaurar?</span><button class="btn sm danger" data-a="reset-yes">Restaurar exemplo</button><button class="btn sm ghost" data-a="reset-no">Manter</button>`
+      : `<button class="btn" data-a="reset">Restaurar exemplo</button>`}</div>
+  </section>`;
+}
+const AMOSTRA = () => ({ sinal: 30, sinalPago: '1', cliente: 'Maria Silva', servico: (D.servicos[0] && D.servicos[0].nome) || 'Defina seu serviço', data: addDays(today(), 1), hora: '14:00', valor: D.servicos[0] && D.servicos[0].valor });
+function updPreviews() { Object.keys(KINDS).forEach(k => { const t = $('#t-' + k), p = $('#p-' + k); if (t && p) p.textContent = fill(t.value, AMOSTRA()); }); }
+
+/* ---------- render ---------- */
+function render() {
+  expira();
+  aplicaCor();
+  $('#nav-agendar').setAttribute('aria-current', S.view === 'agendar' ? 'page' : 'false');
+  $('#nav-painel').setAttribute('aria-current', S.view === 'painel' ? 'page' : 'false');
+  const app = $('#app');
+  if (S.view === 'agendar') { app.innerHTML = topoCliente() + `<main class="wrap">${viewCliente()}</main>`; desenhaQR(); return; }
+  const v = { hoje: viewHoje, agenda: viewAgenda, clientes: viewClientes, relatorios: viewRelatorios, ajustes: viewAjustes }[S.tab]();
+  app.innerHTML = topoPainel() + `<main class="wrap">${v}</main>`;
+  if (S.tab === 'agenda') wireForm();
+  if (S.tab === 'ajustes') updPreviews();
+}
+function rota() { S.view = location.hash === '#painel' ? 'painel' : 'agendar'; render(); window.scrollTo(0,0); }
+window.addEventListener('hashchange', rota);
+
+/* ---------- copiar horários livres ---------- */
+function textoLivres() {
+  const h = today(), linhas = [];
+  for (let i = 0; i < 7; i++) { const d = addDays(h, i), l = livres(d); if (l.length) linhas.push(`${DOW3[parse(d).getDay()]} ${fmtData(d)}: ${l.join(' · ')}`); }
+  return linhas.length ? `Horários livres · ${D.cfg.marca}\n\n${linhas.join('\n')}\n\nMe chama aqui para reservar o seu.` : '';
+}
+
+/* ---------- eventos ---------- */
+let lastTA = null;
+document.addEventListener('focusin', e => { if (e.target.matches && e.target.matches('#f-msg textarea')) lastTA = e.target; });
+document.addEventListener('input', e => {
+  if (e.target.matches && e.target.matches('#f-msg textarea')) updPreviews();
+  if (e.target.id === 'busca') { S.busca = e.target.value; const pos = e.target.selectionStart; render(); const b = $('#busca'); if (b) { b.focus(); b.setSelectionRange(pos, pos); } }
+  if (e.target.id === 'm-cor') { const tmp = D.cfg.cor; D.cfg.cor = e.target.value; aplicaCor(); D.cfg.cor = tmp; }
+});
+document.addEventListener('change', e => {
+  const el = e.target;
+  if (el.dataset && el.dataset.svc) {
+    const s = D.servicos.find(x => x.id === el.dataset.svc); if (!s) return;
+    const f = el.dataset.f; let v = el.value;
+    if (f === 'dur') v = Math.max(5, Number(v) || 0); if (f === 'valor') v = parseMoney(v); if (f === 'nome') { v = v.trim(); if (!v) return; }
+    s[f] = v; save(); toast('Serviço atualizado');
+  }
+  if (el.dataset && el.dataset.a === 'confirmou') { upd(el.dataset.id, { confirmou: el.checked }); render(); }
+});
+document.addEventListener('submit', e => {
+  const id = e.target.id, g = x => document.getElementById(x);
+  if (id === 'f-cli') {
+    e.preventDefault();
+    const nome = g('c-nome').value.trim(), tel = g('c-tel').value;
+    if (!nome) { g('c-warn').innerHTML = '<div class="notice">Escreva seu nome para reservar.</div>'; return; }
+    if (!normTel(tel)) { g('c-warn').innerHTML = '<div class="notice">Coloque seu WhatsApp com DDD, por exemplo (11) 98765-4321.</div>'; return; }
+    const s = D.servicos.find(x => x.id === S.c.svc);
+    if (!s || conflitos(S.c.dia, S.c.hora, s.dur).length) { S.c.hora = null; render(); toast('Esse horário acabou de ser ocupado. Escolha outro.'); return; }
+    const sinal = valorSinal(s);
+    const a = { id: uid(), tipo: 'atendimento', cliente: nome, tel: fmtTel(tel), servico: s.nome, dur: s.dur, valor: s.valor, data: S.c.dia, hora: S.c.hora,
+      status: sinal ? 'aguardando' : 'agendado', sinal: sinal || null, sinalPago: null,
+      expira: sinal ? new Date(Date.now() + Math.max(5, Number(D.cfg.prazoMin) || 30) * 6e4).toISOString() : null,
+      origem: 'link', confirmou: false, enviados: {}, obs: '', criado: new Date().toISOString() };
+    D.ags.push(a); save(); S.c = { svc: null, dia: null, hora: null, feito: a.id }; render(); window.scrollTo(0,0);
+  }
+  if (id === 'f-marca') {
+    e.preventDefault();
+    const fin = logo => { Object.assign(D.cfg, { marca: g('m-marca').value.trim() || 'Coloque sua marca', frase: g('m-frase').value.trim(), endereco: g('m-end').value.trim(), whats: fmtTel(g('m-whats').value), cor: g('m-cor').value }, logo != null ? { logo } : {}); save(); render(); toast('Marca salva'); };
+    const file = g('m-logo').files[0];
+    if (!file) return fin(null);
+    const img = new Image(), rd = new FileReader();
+    rd.onload = () => { img.onload = () => { const cv = document.createElement('canvas'), z = 160, m = Math.min(img.width, img.height); cv.width = cv.height = z;
+      cv.getContext('2d').drawImage(img, (img.width - m) / 2, (img.height - m) / 2, m, m, 0, 0, z, z); fin(cv.toDataURL('image/png')); };
+      img.onerror = () => toast('Não consegui abrir essa imagem. Tente um PNG ou JPG.'); img.src = rd.result; };
+    rd.readAsDataURL(file);
+  }
+  if (id === 'f-pix') {
+    e.preventDefault();
+    const val = parseMoney(g('x-val').value), tipo = g('x-st').value;
+    if (g('x-on').checked && !(val > 0)) return toast('Coloque o valor do sinal.');
+    if (tipo === 'pct' && val > 100) return toast('A porcentagem vai até 100%.');
+    Object.assign(D.cfg, { pixAtivo: g('x-on').checked, pixTipo: g('x-tipo').value, pixChave: g('x-chave').value.trim(), pixNome: g('x-nome').value.trim(),
+      pixCidade: g('x-cid').value.trim(), sinalTipo: tipo, sinalValor: val, prazoMin: Math.max(5, Number(g('x-prazo').value) || 30), politica: g('x-pol').value.trim() });
+    if (D.cfg.pixAtivo && D.cfg.pixChave && !chavePix()) return toast('Confira a chave Pix: o celular precisa ter DDD e número.');
+    save(); render(); toast('Sinal salvo');
+  }
+  if (id === 'f-hor') {
+    e.preventDefault();
+    const abre = g('h-abre').value || '09:00', fecha = g('h-fecha').value || '18:00';
+    if (toMin(fecha) <= toMin(abre)) return toast('O horário de fechar precisa ser depois do de abrir.');
+    Object.assign(D.cfg, { abre, fecha, passo: Math.max(5, Number(g('h-passo').value) || 30), fechados: [0,1,2,3,4,5,6].filter(d => g('h-f' + d).checked) });
+    save(); render(); toast('Horário salvo');
+  }
+  if (id === 'f-svc') {
+    e.preventDefault();
+    const nome = g('s-nome').value.trim(); if (!nome) return toast('Escreva o nome do serviço.');
+    D.servicos.push({ id: uid(), nome, dur: Math.max(5, Number(g('s-dur').value) || 60), valor: parseMoney(g('s-valor').value) }); save(); render(); toast('Serviço adicionado');
+  }
+  if (id === 'f-msg') {
+    e.preventDefault();
+    Object.entries(KINDS).forEach(([k,o]) => { D.cfg[o.key] = g('t-' + k).value; }); save(); toast('Mensagens salvas');
+  }
+});
+document.addEventListener('click', async e => {
+  const el = e.target.closest('[data-a]'); if (!el) return;
+  const a = el.dataset.a, id = el.dataset.id, v = el.dataset.v;
+  if (a === 'confirmou') return;
+  if (a === 'send') { const x = getAg(id); if (x) { x.enviados = { ...(x.enviados || {}), [el.dataset.k]: new Date().toISOString() }; save(); setTimeout(render, 50); } return; }
+  e.preventDefault();
+  switch (a) {
+    case 'c-svc': S.c.svc = v; S.c.hora = null; if (S.c.dia && !livres(S.c.dia, (D.servicos.find(s => s.id === v) || {}).dur).length) S.c.dia = null; render(); break;
+    case 'c-dia': S.c.dia = v; S.c.hora = null; { const sx = window.scrollX, dl = $('#dias') && $('#dias').scrollLeft; render(); if ($('#dias')) $('#dias').scrollLeft = dl; } break;
+    case 'c-hora': S.c.hora = v; render(); { const f = $('#c-nome'); if (f) { f.scrollIntoView({ block: 'center', behavior: 'smooth' }); f.focus({ preventScroll: true }); } } break;
+    case 'c-novo': S.c = { svc: null, dia: null, hora: null, feito: null }; render(); break;
+    case 'tab': S.tab = v; S.form = null; S.copyText = ''; S.reset = false; render(); window.scrollTo(0,0); break;
+    case 'day': S.dia = v; S.open = null; S.copyText = ''; render(); break;
+    case 'week': S.dia = addDays(S.dia, Number(v)); S.open = null; render(); break;
+    case 'slot': abrirForm({ data: S.dia, hora: v }); break;
+    case 'novo': S.dia = v; abrirForm({ data: v }); break;
+    case 'bloq': S.dia = v; abrirForm({ data: v, bloqueio: true, dur: 60 }); break;
+    case 'novo-cli': abrirForm({ data: today(), cliente: v, tel: el.dataset.t || '' }); break;
+    case 'form-sair': S.form = null; render(); break;
+    case 'open': S.open = S.open === id ? null : id; S.confirmDel = null; render(); break;
+    case 'edit': { const x = getAg(id); if (!x) return; S.dia = x.data;
+      abrirForm({ id, cliente: x.cliente || '', tel: x.tel || '', servico: x.servico || '', data: x.data, hora: x.hora, dur: x.dur, valor: x.valor == null ? '' : x.valor, obs: x.obs || '', bloqueio: isBloq(x) }); break; }
+    case 'st': upd(id, { status: v }); toast({ concluido: 'Marcado como concluído', faltou: 'Marcado como falta', cancelado: 'Horário cancelado', agendado: 'Horário reaberto' }[v]); render(); break;
+    case 'unsend': { const x = getAg(id); if (x) { x.enviados = { ...(x.enviados || {}), [el.dataset.k]: null }; save(); } toast('Voltou para a lista da aba Hoje'); render(); break; }
+    case 'del': S.confirmDel = id; render(); break;
+    case 'del-no': S.confirmDel = null; render(); break;
+    case 'del-yes': D.ags = D.ags.filter(x => x.id !== id); save(); S.confirmDel = null; S.open = null; toast('Horário excluído'); render(); break;
+    case 'svc-del': D.servicos = D.servicos.filter(s => s.id !== id); save(); toast('Serviço removido'); render(); break;
+    case 'periodo': S.periodo = v; render(); break;
+    case 'sinal-ok': upd(id, { status: 'agendado', sinalPago: new Date().toISOString(), expira: null }); toast('Sinal recebido. Agora mande a confirmação.'); render(); break;
+    case 'pix-copy': {
+      const t = $('#copia') ? $('#copia').textContent : ''; let ok = false;
+      try { await navigator.clipboard.writeText(t); ok = true; } catch {}
+      if (ok) toast('Código Pix copiado. Cole no app do banco.');
+      else { const r = document.createRange(); r.selectNodeContents($('#copia')); const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); toast('Selecionei o código: copie e cole no app do banco.'); }
+      break; }
+    case 'logo-off': D.cfg.logo = ''; save(); render(); toast('Logo removida'); break;
+    case 'ins': if (lastTA) { const s = lastTA.selectionStart, t = lastTA.value; lastTA.value = t.slice(0, s) + v + t.slice(lastTA.selectionEnd); lastTA.focus(); lastTA.selectionStart = lastTA.selectionEnd = s + v.length; updPreviews(); } else toast('Toque primeiro no texto onde quer inserir.'); break;
+    case 'msg-reset': Object.entries(KINDS).forEach(([k,o]) => { $('#t-' + k).value = MSG[o.key]; }); updPreviews(); toast('Textos sugeridos de volta. Toque em Salvar para manter.'); break;
+    case 'reset': S.reset = true; render(); break;
+    case 'reset-no': S.reset = false; render(); break;
+    case 'reset-yes': D = seed(); save(); S.reset = false; S.c = { svc: null, dia: null, hora: null, feito: null }; render(); toast('Exemplo restaurado'); break;
+    case 'copy-free': {
+      const txt = textoLivres(); if (!txt) { toast('Não há horários livres nos próximos 7 dias.'); break; }
+      let ok = false; try { await navigator.clipboard.writeText(txt); ok = true; } catch {}
+      S.copyText = ok ? '' : txt; render();
+      if (ok) toast('Horários copiados. É só colar no WhatsApp.'); else { const b = $('#copybox'); if (b) { b.focus(); b.select(); } toast('Selecionei o texto: copie e cole no WhatsApp.'); }
+      break; }
+  }
+});
+let tt;
+function toast(msg) { const t = $('#toast'); t.textContent = msg; t.hidden = false; clearTimeout(tt); tt = setTimeout(() => { t.hidden = true; }, 2600); }
+
+setInterval(() => {
+  const foco = document.activeElement && document.activeElement.matches && document.activeElement.matches('input,textarea,select');
+  if (expira() && !foco) { render(); return; }
+  document.querySelectorAll('[data-exp]').forEach(el => { el.textContent = fmtLeft(minsLeft({ expira: el.dataset.exp })); });
+}, 15000);
+rota();
+</script>
+
+</body></html>
