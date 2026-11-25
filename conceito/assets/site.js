@@ -50,7 +50,7 @@ document.addEventListener("click", e => {
 const R = {};
 R.hero = s => `<section class="hero ${s.estilo === "dividido" ? "dividido" : ""}" id="inicio">${s.estilo === "dividido" ? "" : `<img class="foto" src="${esc(s.img)}" alt="${esc(s.alt || "")}" fetchpriority="high">`}
   <div class="in gut"><div style="display:grid;gap:18px">${s.rot ? `<span class="rot">${esc(s.rot)}</span>` : ""}<h1>${esc(s.titulo)}</h1>${s.sub ? `<p class="sub">${esc(s.sub)}</p>` : ""}
-  <div class="acoes">${(s.acoes || []).map(a => `<a class="btn ${a.pri ? "pri" : "sec"}" href="${esc(a.href)}">${esc(a.t)}</a>`).join("")}</div></div>
+  <div class="acoes">${(s.acoes || []).map(a => `<a class="btn ${a.pri ? "pri" : "out"}" href="${esc(a.href)}">${esc(a.t)}</a>`).join("")}</div></div>
   ${s.estilo === "dividido" ? `<img class="foto" src="${esc(s.img)}" alt="${esc(s.alt || "")}" fetchpriority="high">` : ""}</div></section>`;
 R.texto = s => sec(s, `${s.itens ? `<div class="grade">${s.itens.map(i => `<div class="cartao"><h3>${esc(i.t)}</h3><p class="suave">${esc(i.d)}</p></div>`).join("")}</div>` : ""}
   ${s.mosaico ? `<div class="mosaico" style="margin-top:28px">${s.mosaico.map(m => `<img src="${esc(m.img)}" alt="${esc(m.alt || "")}" loading="lazy">`).join("")}</div>` : ""}`);
@@ -79,7 +79,7 @@ R.exercicios = s => {
   const g0 = s.grupos[0].nome;
   return sec(s, `<div class="grupos-m" role="group" aria-label="Grupo muscular">${s.grupos.map((g, i) => `<button type="button" data-gm="${i}" aria-pressed="${i === 0}">${esc(g.nome)}</button>`).join("")}</div>
     <div id="exs" class="exs"></div>
-    <div class="treino" id="treino"><div class="linha"><h3>Meu treino de hoje</h3><button class="btn sec peq" type="button" id="limparTreino">Limpar</button></div><ol id="treinoLista"></ol><p class="suave" id="treinoVazio">Toque em "Pôr no treino" nos exercícios para montar a sua ficha.</p>
+    <div class="treino" id="treino"><div class="linha"><h3>Meu treino de hoje</h3><button class="btn out peq" type="button" id="limparTreino">Limpar</button></div><ol id="treinoLista"></ol><p class="suave" id="treinoVazio">Toque em "Pôr no treino" nos exercícios para montar a sua ficha.</p>
       <div><button class="btn pri" type="button" id="enviarTreino">Mandar a ficha para o professor</button></div></div>`);
 };
 const CORPO = { "Peito": [[17, 13, 14, 8]], "Costas": [[17, 13, 14, 12]], "Pernas": [[17, 33, 6, 22], [25, 33, 6, 22]], "Ombros": [[13, 12, 5, 5], [30, 12, 5, 5]], "Braços": [[11, 16, 4, 14], [33, 16, 4, 14]], "Abdômen": [[19, 21, 10, 10]], "Glúteos": [[17, 31, 14, 6]], "Cardio": [[17, 13, 14, 18]] };
@@ -93,7 +93,7 @@ function desenharExs(s, gi) {
   $("#exs").innerHTML = g.exs.map(x => { const no = treino.some(t => t.n === x.n);
     return `<article class="ex${no ? " no-treino" : ""}"><div class="musc">${boneco(g.nome)}<div><h3>${esc(x.n)}</h3><span style="font-size:13px;opacity:.7">${esc(g.nome)}${x.eq ? " · " + esc(x.eq) : ""}</span></div></div>
       <div class="met"><span>${esc(x.s)} séries</span><span>${esc(x.r)}</span>${x.desc ? `<span>descanso ${esc(x.desc)}</span>` : ""}</div>
-      <p class="dica">${esc(x.dica)}</p><button class="btn ${no ? "pri" : "sec"} peq" type="button" data-treino="${esc(x.n)}" data-g="${gi}">${no ? "No treino" : "Pôr no treino"}</button></article>`; }).join("");
+      <p class="dica">${esc(x.dica)}</p><button class="btn ${no ? "pri" : "out"} peq" type="button" data-treino="${esc(x.n)}" data-g="${gi}">${no ? "No treino" : "Pôr no treino"}</button></article>`; }).join("");
 }
 function desenharTreino() {
   const ol = $("#treinoLista"); if (!ol) return;
@@ -102,7 +102,7 @@ function desenharTreino() {
   try { localStorage.setItem(CK + "-treino", JSON.stringify(treino)); } catch {}
 }
 R.planos = s => sec(s, `<div class="planos">${s.itens.map(p => `<div class="plano${p.dest ? " dest" : ""}">${p.dest ? `<span class="rot">${esc(p.dest)}</span>` : ""}<h3>${esc(p.n)}</h3><div class="valor">${precoTxt(p.p)}${p.per ? `<small> ${esc(p.per)}</small>` : ""}</div><ul>${p.itens.map(i => `<li>${esc(i)}</li>`).join("")}</ul>
-  <a class="btn ${p.dest ? "pri" : "sec"}" href="${esc(msgWa(`Quero saber mais sobre o plano ${p.n}.`))}" target="_blank" rel="noopener">${esc(s.botao || "Quero este")}</a></div>`).join("")}</div>`);
+  <a class="btn ${p.dest ? "pri" : "out"}" href="${esc(msgWa(`Quero saber mais sobre o plano ${p.n}.`))}" target="_blank" rel="noopener">${esc(s.botao || "Quero este")}</a></div>`).join("")}</div>`);
 R.orcamento = s => sec(s, `<form class="form" id="form-${esc(s.id)}" data-orc="${esc(s.id)}" novalidate>${s.campos.map((c, i) => {
   const id = `${s.id}-c${i}`, cls = c.int ? "int" : "";
   if (c.tipo === "select") return `<label class="${cls}" for="${id}">${esc(c.label)}<select id="${id}" data-l="${esc(c.label)}">${c.ops.map(o => `<option>${esc(o)}</option>`).join("")}</select></label>`;
