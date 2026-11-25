@@ -153,6 +153,121 @@ p { margin: 0; }
 .conc p { color: var(--tinta-suave); font-size: 15px; }
 .conc .ir { color: var(--egeu); font-weight: 500; font-size: 14px; }
 .conc-img img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 4px; box-shadow: 0 20px 44px #2a1d1633; }
+/* ===== redesenho ===== */
+.cab .in { flex-wrap: nowrap; }
+.nav { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+.nav::-webkit-scrollbar { display: none; }
+.nav a { white-space: nowrap; }
+.nav a.cta-nav { background: var(--terra); color: var(--marmore-claro); margin-left: 6px; }
+.nav a.cta-nav:hover { background: var(--terra); filter: brightness(1.1); color: var(--marmore-claro); }
+@media (max-width: 760px) { .cab .in { flex-wrap: wrap; } .nav { margin-left: 0; width: 100%; } .marca small { display: none; } .nav a.cta-nav { order: -1; margin: 0 6px 0 0; } }
+.conc.chamar { background: var(--terra-escura); color: var(--sobre-escuro); border-radius: 4px; padding: 24px; justify-content: flex-end; min-height: 260px; }
+.conc.chamar p { color: var(--sobre-escuro-suave); }
+.conc.chamar .ir { color: var(--egeu-claro); }
+.btn.claro { background: var(--marmore-claro); color: var(--tinta); }
+.btn.linha-clara { border-color: rgba(255,255,255,.55); color: #fff; }
+
+/* abertura da página inicial */
+.abre { padding-block: clamp(40px, 6vw, 72px) clamp(56px, 8vw, 96px); position: relative; overflow: hidden; }
+.abre .in { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: clamp(28px, 5vw, 64px); align-items: center; }
+@media (max-width: 900px) { .abre .in { grid-template-columns: minmax(0, 1fr); } }
+.abre-txt { display: grid; gap: 22px; }
+.abre-txt h1 { font-size: clamp(44px, 6.4vw, 80px); }
+.abre .acoes { display: flex; gap: 10px; flex-wrap: wrap; }
+.prova { display: flex; gap: 8px 18px; flex-wrap: wrap; font-size: 14px; color: var(--tinta-suave); }
+.prova span { display: inline-flex; align-items: center; gap: 8px; }
+.prova span::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--egeu); }
+.colagem { position: relative; display: grid; grid-template-columns: 1.1fr .9fr 1fr; grid-template-rows: 190px 190px 150px; gap: 10px; }
+.colagem > img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.colagem .c1 { grid-column: 1; grid-row: 1 / 3; }
+.colagem .c2 { grid-column: 2; grid-row: 1; }
+.colagem .c3 { grid-column: 3; grid-row: 1 / 2; }
+.colagem .c4 { grid-column: 2 / 4; grid-row: 2; }
+.colagem .c5 { grid-column: 1 / 2; grid-row: 3; }
+.colagem .c6 { grid-column: 2 / 4; grid-row: 3; }
+.colagem .tela { position: absolute; left: 8%; bottom: -34px; width: 62%; background: #FBF9F6; border-radius: 4px; overflow: hidden; box-shadow: 0 24px 60px #2a1d1659; }
+.colagem .tela .barra { display: flex; gap: 6px; padding: 7px 10px; background: #E8E0D5; }
+.colagem .tela .barra i { width: 8px; height: 8px; border-radius: 50%; background: #C9BCAF; }
+.colagem .tela img { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; }
+.colagem .cel { position: absolute; right: -10px; bottom: -48px; width: 23%; min-width: 92px; border: 6px solid #120c09; border-radius: 22px; overflow: hidden; background: #120c09; box-shadow: 0 18px 40px #00000066; }
+.colagem .cel img { display: block; width: 100%; aspect-ratio: 9 / 19; object-fit: cover; object-position: top; }
+@media (max-width: 560px) { .colagem { grid-template-rows: 130px 130px 100px; } .colagem .tela { width: 72%; left: 4%; } .colagem .cel { right: 0; } }
+.fita { background: var(--terra-escura); color: var(--sobre-escuro-suave); padding-block: 16px; font-size: 14px; font-weight: 500; letter-spacing: .04em; }
+.fita .in { display: flex; flex-wrap: wrap; gap: 6px 22px; justify-content: center; }
+.fita span::after { content: "·"; margin-left: 22px; color: var(--egeu-claro); }
+.fita span:last-child::after { content: ""; }
+
+/* serviços */
+.servs { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 330px), 1fr)); gap: 28px 22px; }
+.serv { display: flex; flex-direction: column; gap: 10px; }
+.serv .ft { aspect-ratio: 4 / 3; overflow: hidden; border-radius: 4px; background: var(--areia); }
+.serv .ft img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .5s; }
+.serv:hover .ft img { transform: scale(1.04); }
+.serv .n { font-size: 12px; font-weight: 500; letter-spacing: .16em; color: var(--terra); }
+.serv p { color: var(--tinta-suave); font-size: 15px; }
+
+/* segmentos com foto */
+.segs-f { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); gap: 14px; }
+.seg-f { position: relative; aspect-ratio: 3 / 4; overflow: hidden; border-radius: 4px; color: #fff; text-decoration: none; display: flex; flex-direction: column; justify-content: flex-end; padding: 22px; }
+.seg-f img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .6s; }
+.seg-f::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20,12,8,.15) 0%, rgba(20,12,8,.55) 40%, rgba(20,12,8,.92) 100%); }
+.seg-f > * { position: relative; z-index: 1; }
+.seg-f:hover img { transform: scale(1.05); }
+.seg-f .rot { color: #E8DCCF; }
+.seg-f h3 { font-size: 23px; margin: 6px 0 8px; }
+.seg-f p { font-size: 14px; color: #E8DCCF; }
+.seg-f .ir { margin-top: 12px; font-weight: 500; font-size: 14px; color: #fff; }
+
+/* filtro dos projetos */
+.filtro { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 26px; }
+.filtro button { border: 1px solid var(--veio); background: var(--marmore-claro); color: var(--tinta); border-radius: 999px; padding: 8px 15px; font: 500 14px var(--fonte); cursor: pointer; }
+.filtro button[aria-pressed="true"] { background: var(--tinta); color: var(--marmore); border-color: var(--tinta); }
+
+/* abertura com foto (segmentos e diagnóstico) */
+.abre-f { position: relative; color: #fff; min-height: min(78vh, 660px); display: flex; align-items: flex-end; overflow: hidden; }
+.abre-f > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.abre-f::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(20,12,8,.88) 0%, rgba(20,12,8,.6) 45%, rgba(20,12,8,.15) 100%); }
+.abre-f .in { position: relative; z-index: 1; width: 100%; padding-block: 120px 64px; display: grid; gap: 20px; }
+.abre-f .in > * { max-width: 680px; }
+.abre-f .rot { color: #E8DCCF; }
+.abre-f h1 i { color: var(--egeu-claro); }
+.abre-f .lead { color: #EDE4DA; }
+.abre-f .acoes { display: flex; gap: 10px; flex-wrap: wrap; }
+.dividido { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 64px); align-items: center; }
+.dividido > img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 4px; }
+@media (max-width: 820px) { .dividido { grid-template-columns: minmax(0, 1fr); } .dividido > img { aspect-ratio: 4 / 3; } }
+
+/* diagnóstico grátis */
+.pedido { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 64px); align-items: start; }
+@media (max-width: 820px) { .pedido { grid-template-columns: minmax(0, 1fr); } }
+.form-d { background: var(--marmore-claro); border: 1px solid var(--veio); border-radius: 4px; padding: clamp(20px, 3vw, 32px); display: grid; gap: 14px; color: var(--tinta); }
+.form-d label { display: grid; gap: 6px; font-size: 14px; font-weight: 500; }
+.form-d input, .form-d select { font: 15px var(--fonte); padding: 11px 12px; border: 1px solid var(--veio); border-radius: 4px; background: #fff; color: var(--tinta); width: 100%; }
+.form-d .dupla { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 480px) { .form-d .dupla { grid-template-columns: 1fr; } }
+.recebe { list-style: none; padding: 0; margin: 22px 0 0; display: grid; gap: 14px; }
+.recebe li { display: grid; grid-template-columns: 30px 1fr; gap: 10px; }
+.recebe li b { display: block; }
+.recebe li span { color: var(--sobre-escuro-suave); font-size: 15px; }
+.recebe li::before { content: ""; width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--egeu-claro); margin-top: 6px; }
+
+/* perguntas */
+.faq { max-width: 820px; }
+.faq details { border-top: 1px solid var(--veio); padding: 18px 0; }
+.faq details:last-child { border-bottom: 1px solid var(--veio); }
+.faq summary { cursor: pointer; font-weight: 500; font-size: 18px; letter-spacing: -.01em; list-style: none; display: flex; justify-content: space-between; gap: 16px; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; color: var(--terra); font-size: 22px; line-height: 1; }
+.faq details[open] summary::after { content: "−"; }
+.faq p { margin-top: 10px; color: var(--tinta-suave); max-width: 68ch; }
+
+/* chamada final com foto */
+.final { position: relative; color: #fff; overflow: hidden; }
+.final > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.final::after { content: ""; position: absolute; inset: 0; background: rgba(20,12,8,.78); }
+.final .in { position: relative; z-index: 1; }
+.final .lead { color: #EDE4DA; }
+.final .contato { color: #D9CFC4; }
 .carregando { padding: 80px 0; color: var(--tinta-suave); }
 @media (prefers-reduced-motion: no-preference) { .vista { animation: sobe .35s ease-out; } @keyframes sobe { from { opacity: .4; transform: translateY(6px); } } }
 </style>
@@ -161,9 +276,9 @@ p { margin: 0; }
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="lente" viewBox="0 0 64 64"><circle cx="32" cy="32" r="27" fill="none" stroke="currentColor" stroke-width="6"/><path d="M14 32h36" stroke="currentColor" stroke-width="6"/><circle cx="32" cy="32" r="7" fill="#1F5C8F"/></symbol></svg>
 <header class="cab gut"><div class="in">
-  <a class="marca" href="#inicio" aria-label="Eikóna, início"><svg class="lente" style="color:var(--tinta)"><use href="#lente"/></svg><span><b>eikóna<i>.</i></b><small>marketing &amp; comunicação</small></span></a>
-  <nav class="nav" aria-label="Segmentos">
-    <a href="#beleza" data-v="beleza">Salões e estética</a><a href="#saude" data-v="saude">Saúde</a><a href="#comercio" data-v="comercio">Comércio</a><a href="#b2b" data-v="b2b">Empresas B2B</a>
+  <a class="marca" href="#" aria-label="Eikóna, início"><svg class="lente" style="color:var(--tinta)"><use href="#lente"/></svg><span><b>eikóna<i>.</i></b><small>marketing &amp; comunicação</small></span></a>
+  <nav class="nav" aria-label="Seções">
+    <a href="#servicos" data-v="servicos">Serviços</a><a href="#segmentos" data-v="segmentos">Segmentos</a><a href="#projetos" data-v="projetos">Projetos</a><a href="#cases" data-v="cases">Cases</a><a href="#faq" data-v="faq">Dúvidas</a><a class="cta-nav" href="#diagnostico" data-v="diagnostico">Diagnóstico grátis</a>
   </nav>
 </div></header>
 <main id="vista"><div class="gut"><div class="in carregando">Carregando…</div></div></main>
@@ -216,6 +331,28 @@ function concCard(c) { return `<a class="conc" href="conceito/${c[0]}/"><img src
 function secConc(lista, titulo, sub) {
   return `<section class="faixa gut"><div class="in"><div class="cab-sec"><span class="rot">Projetos conceito</span><h2>${titulo}<i>.</i></h2><p class="lead">${sub}</p></div><div class="concs">${lista.map(concCard).join("")}</div></div></section>`;
 }
+const FOTO_SEG = { beleza: "conceito/pele-leve/img/p1.jpg", saude: "conceito/pulso-academia/img/p2.jpg", comercio: "conceito/cantina-lucia/img/p1.jpg", b2b: "conceito/torque-certo/img/p1.jpg" };
+const FOTO_DOR = { beleza: "conceito/lacca/img/p1.jpg", saude: "conceito/sorrir-clinica/img/p1.jpg", comercio: "conceito/mercado-bom-dia/img/p1.jpg", b2b: "img/santerm-d.jpg" };
+const SERVICOS = [
+  ["Site profissional", "Rápido no celular, com serviços, fotos, localização, botão de WhatsApp e Google configurado.", "img/h-desk.jpg"],
+  ["Agenda online", "A cliente escolhe serviço, dia e horário sozinha, paga o sinal por Pix e recebe lembrete no WhatsApp.", "conceito/navalha-mooca/img/g1.jpg"],
+  ["Catálogo digital", "Produtos com fotos, filtros e pedido direto pelo WhatsApp. Sem PDF, sem ligação.", "conceito/trama/img/p1.jpg"],
+  ["Gestão de Instagram", "Direção de arte, calendário, artes, legendas e publicação, para o perfil mostrar a qualidade do trabalho.", "conceito/studio-mecha/img/g1.jpg"],
+  ["Fotografia", "Ensaio do espaço, da equipe, dos produtos e dos trabalhos, pronto para usar no site e nas redes.", "conceito/trigo-fino/img/p1.jpg"],
+  ["Identidade visual", "Logo, cores, tipografia e aplicações, para a marca ser reconhecida em todo lugar.", "conceito/navalha-mooca/img/p1.jpg"],
+];
+const FAQ = [
+  ["Quanto custa um site?", "Depende do que o negócio precisa: um site de apresentação, uma agenda online ou um catálogo têm escopos diferentes. Depois da primeira conversa, mandamos uma proposta por escrito, com escopo, prazo e valor fechados."],
+  ["Quanto tempo leva?", "Um site de apresentação costuma ficar pronto em poucas semanas. O prazo exato vai na proposta e depende de quanto material (textos e fotos) já existe."],
+  ["Preciso ter textos e fotos prontos?", "Não. Escrevemos os textos com você e, se precisar, fazemos o ensaio fotográfico do espaço, da equipe e dos trabalhos."],
+  ["Vou conseguir atualizar sozinho?", "Sim. Entregamos tudo funcionando e explicamos como trocar preços, horários e fotos. Se preferir, cuidamos da manutenção."],
+  ["Vocês atendem fora de São Paulo?", "O foco é a cidade de São Paulo, mas sites, agenda e Instagram funcionam a distância para qualquer lugar."],
+  ["O diagnóstico grátis tem algum compromisso?", "Nenhum. Olhamos como a empresa aparece hoje no Google, no site e no Instagram e mandamos o que encontramos, com sugestões."],
+];
+const ANCORAS = ["servicos", "segmentos", "projetos", "cases", "diagnostico", "faq"];
+function abreFoto(img, rot, titulo, lead, acoes) {
+  return `<section class="abre-f gut"><img src="${esc(img)}" alt="" fetchpriority="high"><div class="in"><span class="rot">${esc(rot)}</span><h1>${titulo}<i>.</i></h1><p class="lead">${lead}</p><div class="acoes">${acoes}</div></div></section>`;
+}
 const CASES = {
   alm: { nome: "ALM Segurança Eletrônica", rot: "Distribuidora B2B", txt: "Distribuidora de produtos para CFTV. O site organiza a linha de produtos em catálogo: o cliente monta a lista e envia o pedido de orçamento pelo WhatsApp.", chips: ["Site", "Catálogo digital", "Orçamento pelo WhatsApp"] },
   sentinela: { nome: "Sentinela Segurança", rot: "Serviço local", txt: "Câmeras, alarmes e monitoramento para residências. Além do site, um simulador em que o cliente monta o projeto de câmeras antes de pedir a visita técnica.", chips: ["Site", "Simulador de câmeras", "Captação de orçamento"] },
@@ -262,25 +399,53 @@ function secCTA(titulo, txt) {
     <div><a class="btn pri" href="${esc(wa(txt))}" target="_blank" rel="noopener">Conversar pelo WhatsApp</a></div><p class="contato">Guilherme Gomes da Silva · (11) 98370-1215 · g.gomes1353@gmail.com · @eikona.mkt</p></div></section>`;
 }
 function vInicio() {
-  return `<section class="faixa hero gut">${lente("marca-agua")}<div class="in"><span class="rot">Sites · fotografia · Instagram</span><h1>Seu negócio encontrado, escolhido e agendado<i>.</i></h1>
-    <p class="lead">Sites, fotografia e gestão de Instagram para empresas de SP, da conversa inicial à publicação, sem complicação.</p>
-    <div class="acoes"><a class="btn pri" href="${esc(wa("Oi! Vi a apresentação da Eikóna e quero conversar."))}" target="_blank" rel="noopener">Conversar pelo WhatsApp</a><a class="btn sec" href="#b2b">Ver cases</a></div></div></section>
-    <section class="faixa areia gut"><div class="in"><div class="cab-sec"><span class="rot">Escolha o seu segmento</span><h2>O que fazemos para cada tipo de negócio<i>.</i></h2></div>
-    <div class="segs">${Object.entries(SEG).map(([k, s]) => `<a class="seg" href="#${k}"><span class="rot">${esc(s.nome)}</span><h3>${esc(s.titulo)}</h3><p>${esc(s.lead.split(". ")[0])}.</p><span class="ir">Ver apresentação →</span></a>`).join("")}</div></div></section>
-    ${secCases(["sentinela", "alm", "santerm", "flysy"], "Alguns dos nossos trabalhos")}${secConc(CONC, "Como ficaria o site do seu negócio", "Sites completos de empresas fictícias, criados para mostrar o que fazemos em cada tipo de negócio. Abra, clique e teste: agenda, cardápio, portfólio e pedidos funcionam.")}${secProcesso()}${secCTA("Vamos ver o que dá para melhorar no seu", "Oi! Vi a apresentação da Eikóna e quero conversar.")}`;
+  const W = wa("Oi! Vi o site da Eikóna e quero conversar.");
+  const segs = ["Salões", "Barbearias", "Esmalterias", "Clínicas de estética", "Academias", "Dentistas", "Restaurantes", "Padarias", "Mercados", "Pet shops", "Oficinas", "Lojas", "Estúdios de tatuagem", "Indústrias"];
+  return `<section class="abre gut"><div class="in">
+      <div class="abre-txt"><span class="rot">Sites · agenda online · Instagram · fotografia</span><h1>Seu negócio encontrado, escolhido e agendado<i>.</i></h1>
+        <p class="lead">Sites, fotografia e gestão de Instagram para empresas de São Paulo, da conversa inicial à publicação, sem complicação.</p>
+        <div class="acoes"><a class="btn pri" href="#diagnostico">Pedir diagnóstico grátis</a><a class="btn sec" href="#projetos">Ver projetos</a></div>
+        <div class="prova"><span>Proposta por escrito</span><span>Textos e fotos inclusos</span><span>Tudo funcionando no celular</span></div></div>
+      <div class="colagem" aria-hidden="true">
+        <img class="c1" src="conceito/tinta-crua/img/p1.jpg" alt=""><img class="c2" src="conceito/lacca/img/g1.jpg" alt=""><img class="c3" src="conceito/banho-bigode/img/p1.jpg" alt="">
+        <img class="c4" src="conceito/cantina-lucia/img/p1.jpg" alt=""><img class="c5" src="conceito/trigo-fino/img/p6.jpg" alt=""><img class="c6" src="conceito/pulso-academia/img/p2.jpg" alt="">
+        <div class="tela"><div class="barra"><i></i><i></i><i></i></div><img src="img/h-desk.jpg" alt=""></div><div class="cel"><img src="img/h-mob.jpg" alt=""></div></div>
+    </div></section>
+    <div class="fita gut"><div class="in">${segs.map(x => `<span>${x}</span>`).join("")}</div></div>
+    <section class="faixa gut" id="servicos"><div class="in"><div class="cab-sec"><span class="rot">Serviços</span><h2>Tudo o que a empresa precisa para ser encontrada e escolhida<i>.</i></h2><p class="lead">Fazemos junto com você, do texto à foto, e entregamos funcionando.</p></div>
+      <div class="servs">${SERVICOS.map((x, i) => `<article class="serv"><div class="ft"><img src="${x[2]}" alt="" loading="lazy"></div><span class="n">0${i + 1}</span><h3>${esc(x[0])}</h3><p>${esc(x[1])}</p></article>`).join("")}</div></div></section>
+    <section class="faixa areia gut" id="segmentos"><div class="in"><div class="cab-sec"><span class="rot">Segmentos</span><h2>Uma apresentação para cada tipo de negócio<i>.</i></h2></div>
+      <div class="segs-f">${Object.entries(SEG).map(([k, x]) => `<a class="seg-f" href="#${k}"><img src="${FOTO_SEG[k]}" alt="" loading="lazy"><span class="rot">${esc(x.nome)}</span><h3>${esc(x.titulo)}</h3><p>${esc(x.lead.split(". ")[0])}.</p><span class="ir">Ver apresentação →</span></a>`).join("")}</div></div></section>
+    <section class="faixa gut" id="projetos"><div class="in"><div class="cab-sec"><span class="rot">Projetos conceito</span><h2>Como ficaria o site do seu negócio<i>.</i></h2><p class="lead">Sites completos de empresas fictícias, criados para mostrar o que fazemos em cada ramo. Abra e teste: agenda, cardápio, portfólio e pedidos funcionam.</p></div>
+      <div class="filtro" role="group" aria-label="Filtrar projetos">${[["", "Todos"], ["beleza", "Salões e estética"], ["saude", "Saúde"], ["comercio", "Comércio e serviços"]].map(([k, t], i) => `<button type="button" data-f="${k}" aria-pressed="${i === 0}">${t}</button>`).join("")}</div>
+      <div class="concs">${CONC.map(c => concCard(c).replace('<a class="conc"', `<a class="conc" data-seg="${c[3]}"`)).join("")}<a class="conc chamar" href="#diagnostico"><span class="rot" style="color:var(--sobre-escuro-suave)">Seu ramo não está aqui?</span><h3>A gente faz um para o seu negócio<i>.</i></h3><p>Comece pelo diagnóstico grátis: olhamos como a empresa aparece hoje e mostramos o que mudar.</p><span class="ir">Pedir diagnóstico →</span></a></div></div></section>
+    <div id="cases">${secCases(["sentinela", "alm", "santerm", "flysy"], "Trabalhos entregues")}</div>
+    <section class="faixa escuro gut" id="diagnostico"><div class="in pedido"><div><span class="rot">Diagnóstico grátis</span><h2 style="margin-top:12px">Descubra o que faz o cliente desistir antes de chamar<i>.</i></h2>
+        <ul class="recebe"><li><div><b>Como você aparece no Google</b><span>Se o site abre, se funciona no celular, se o perfil da empresa está completo.</span></div></li>
+          <li><div><b>O que o Instagram está passando</b><span>Frequência, padrão visual e se o caminho até o WhatsApp está claro.</span></div></li>
+          <li><div><b>O que resolver primeiro</b><span>Uma lista curta, em ordem de impacto, sem compromisso.</span></div></li></ul></div>
+      <form class="form-d" id="formDiag" novalidate><label for="dEmp">Nome da empresa<input id="dEmp" required placeholder="Como aparece no Google"></label>
+        <label for="dLink">Instagram ou site<input id="dLink" placeholder="@perfil ou www.site.com.br"></label>
+        <div class="dupla"><label for="dSeg">Segmento<select id="dSeg"><option>Salão, barbearia ou estética</option><option>Saúde ou academia</option><option>Restaurante, padaria ou mercado</option><option>Loja ou prestador de serviço</option><option>Indústria ou B2B</option><option>Outro</option></select></label>
+          <label for="dBairro">Bairro<input id="dBairro" placeholder="Ex.: Tatuapé"></label></div>
+        <button class="btn pri" type="submit" style="justify-content:center">Pedir diagnóstico pelo WhatsApp</button><p class="nota">A resposta chega no seu WhatsApp em até um dia útil.</p></form></div></section>
+    ${secProcesso()}
+    <section class="faixa areia gut" id="faq"><div class="in"><div class="cab-sec"><span class="rot">Dúvidas</span><h2>Perguntas frequentes<i>.</i></h2></div>
+      <div class="faq">${FAQ.map(([q, r]) => `<details><summary>${esc(q)}</summary><p>${esc(r)}</p></details>`).join("")}</div></div></section>
+    <section class="faixa final gut"><img src="conceito/navalha-mooca/img/p1.jpg" alt="" loading="lazy"><div class="in cta"><h2>Vamos ver o que dá para melhorar no seu negócio<i>.</i></h2><p class="lead">Chama no WhatsApp: a primeira conversa é para entender o seu caso, sem compromisso.</p>
+      <div><a class="btn claro" href="${esc(W)}" target="_blank" rel="noopener">Conversar pelo WhatsApp</a></div><p class="contato">Guilherme Gomes da Silva · (11) 98370-1215 · g.gomes1353@gmail.com · @eikona.mkt</p></div></section>`;
 }
 function vSeg(k) {
   const s = SEG[k];
-  return `<section class="faixa hero gut">${lente("marca-agua")}<div class="in"><span class="rot">${esc(s.nome)}</span><h1>${esc(s.titulo)}<i>.</i></h1><p class="lead">${esc(s.lead)}</p>
-    <div class="acoes"><a class="btn pri" href="${esc(wa(`Oi! Vi a apresentação da Eikóna para ${s.nome.toLowerCase()} e quero conversar.`))}" target="_blank" rel="noopener">Conversar pelo WhatsApp</a></div></div></section>
-    <section class="faixa areia gut"><div class="in"><div class="cab-sec"><span class="rot">O que costuma travar</span><h2>Onde os clientes se perdem hoje<i>.</i></h2></div>
-      <ul class="lista-v">${s.dores.map(d => `<li><span>${esc(d)}</span></li>`).join("")}</ul></div></section>
+  return `${abreFoto(FOTO_SEG[k], s.nome, esc(s.titulo), esc(s.lead), `<a class="btn claro" href="${esc(wa(`Oi! Vi a apresentação da Eikóna para ${s.nome.toLowerCase()} e quero conversar.`))}" target="_blank" rel="noopener">Conversar pelo WhatsApp</a><a class="btn linha-clara" href="#exemplos-${k}" data-rolar="exemplos-${k}">Ver sites de exemplo</a>`)}
+    <section class="faixa areia gut"><div class="in dividido"><div><div class="cab-sec"><span class="rot">O que costuma travar</span><h2>Onde os clientes se perdem hoje<i>.</i></h2></div>
+      <ul class="lista-v">${s.dores.map(d => `<li><span>${esc(d)}</span></li>`).join("")}</ul></div><img src="${FOTO_DOR[k]}" alt="" loading="lazy"></div></section>
     ${s.agenda ? `<section class="faixa gut"><div class="in agenda-box"><div class="cab-sec" style="margin:0"><span class="rot">Agenda online</span><h2>A cliente marca sozinha, a qualquer hora<i>.</i></h2>
       <p class="lead">Ela escolhe o serviço, o dia e o horário, paga o sinal por Pix e recebe a confirmação e o lembrete no WhatsApp. Você só acompanha.</p>
       <div><a class="btn sec" href="agenda/" target="_blank" rel="noopener">Testar a demonstração</a></div></div>${agenda(k === "saude" ? "Sua clínica" : "Seu estúdio", k === "saude" ? "clínica" : "esmalteria")}</div></section>` : ""}
     <section class="faixa gut ${s.agenda ? "areia" : ""}"><div class="in"><div class="cab-sec"><span class="rot">O que entregamos</span><h2>Do primeiro clique ao cliente na porta<i>.</i></h2></div>
       <div class="solucoes">${s.entregas.map(e => `<div class="sol"><h3>${esc(e[0])}</h3><p>${esc(e[1])}</p></div>`).join("")}</div></div></section>
-    ${secConc(CONC.filter(c => c[3] === k), "Sites de exemplo para " + s.nome.toLowerCase(), "Empresas fictícias, sites de verdade. Teste a agenda, o cardápio ou o pedido como se fosse um cliente.")}${secCases(s.cases, "Trabalhos que mostram como fazemos")}${secProcesso()}${secCTA("Vamos ver o que dá para melhorar no seu", `Oi! Vi a apresentação da Eikóna para ${s.nome.toLowerCase()} e quero conversar.`)}`;
+    <div id="exemplos-${k}">${secConc(CONC.filter(c => c[3] === k), "Sites de exemplo para " + s.nome.toLowerCase(), "Empresas fictícias, sites de verdade. Teste a agenda, o cardápio ou o pedido como se fosse um cliente.")}</div>${secCases(s.cases, "Trabalhos que mostram como fazemos")}${secProcesso()}${secCTA("Vamos ver o que dá para melhorar no seu", `Oi! Vi a apresentação da Eikóna para ${s.nome.toLowerCase()} e quero conversar.`)}`;
 }
 function achados(p) {
   const A = [], tipo = (p.t || "").toLowerCase(), b = p.d;
@@ -311,9 +476,9 @@ async function vDiag(id) {
   const A = achados(p), seg = SEG[p.s] || SEG.comercio, temAg = p.g.includes("sem_agenda");
   const txt = `Oi! Vi o diagnóstico que vocês fizeram do ${p.n} e quero conversar.`;
   document.title = "Diagnóstico · " + p.n;
-  V.innerHTML = `<section class="faixa hero gut">${lente("marca-agua")}<div class="in"><span class="rot">Diagnóstico digital · ${esc(p.t)} · ${esc(p.d)}</span><h1>${esc(p.n)}<i>.</i></h1>
-      <p class="lead">Olhamos como o ${esc(p.n)} aparece para quem procura ${esc((p.t || "o serviço").toLowerCase())} em ${esc(p.d)}. Encontramos ${A.length === 1 ? "um ponto" : A.length + " pontos"} que fazem clientes desistirem antes de entrar em contato.</p>
-      <div class="acoes"><a class="btn pri" href="${esc(wa(txt))}" target="_blank" rel="noopener">Conversar sobre o diagnóstico</a></div></div></section>
+  const cc = concDo(p.t), fotoD = cc ? `conceito/${cc[0]}/img/p1.jpg` : FOTO_SEG[p.s] || FOTO_SEG.comercio;
+  V.innerHTML = `${abreFoto(fotoD, `Diagnóstico digital · ${p.t} · ${p.d}`, esc(p.n), `Olhamos como o ${esc(p.n)} aparece para quem procura ${esc((p.t || "o serviço").toLowerCase())} em ${esc(p.d)}. Encontramos ${A.length === 1 ? "um ponto" : A.length + " pontos"} que fazem clientes desistirem antes de entrar em contato.`,
+      `<a class="btn claro" href="${esc(wa(txt))}" target="_blank" rel="noopener">Conversar sobre o diagnóstico</a>`)}
     <section class="faixa areia gut"><div class="in"><div class="cab-sec"><span class="rot">O que encontramos</span><h2>${A.length ? "Pontos de atenção" : "Presença em ordem"}<i>.</i></h2></div>
       <div class="achados">${A.map(a => `<div class="achado${a[0] === "i" ? " leve" : ""}"><span class="ico" aria-hidden="true">${a[0]}</span><div><h3>${esc(a[1])}</h3><p>${esc(a[2])}</p></div></div>`).join("")}</div>
       <p class="nota" style="margin-top:14px">Verificação feita com dados públicos em ${VERIF}. Se algo já mudou, ótimo: é só nos avisar.</p></div></section>
@@ -327,17 +492,35 @@ async function vDiag(id) {
       <div class="solucoes">${solucoes(p).map(s => `<div class="sol"><h3>${esc(s[0])}</h3><p>${esc(s[1])}</p></div>`).join("")}</div></div></section>
     ${secCases(seg.cases, "Trabalhos parecidos que já fizemos")}${secCTA("Quer resolver isso", txt)}`;
 }
+let vistaAtual = "";
 function rota() {
   const h = location.hash.slice(1);
   document.querySelectorAll(".nav a").forEach(a => a.setAttribute("aria-current", a.dataset.v === h ? "page" : "false"));
-  document.title = "Eikóna · Marketing e Comunicação";
   const V = document.getElementById("vista");
-  if (SEG[h]) V.innerHTML = vSeg(h);
-  else if (/^[FO][A-Za-z0-9]{3,24}$/.test(h)) { vDiag(h); }
-  else V.innerHTML = vInicio();
+  if (ANCORAS.includes(h) || /^exemplos-/.test(h)) {
+    if (/^exemplos-/.test(h)) { const k = h.slice(9); if (vistaAtual !== k && SEG[k]) { V.innerHTML = vSeg(k); vistaAtual = k; } }
+    else if (vistaAtual !== "inicio") { V.innerHTML = vInicio(); vistaAtual = "inicio"; document.title = "Eikóna · Marketing e Comunicação"; }
+    requestAnimationFrame(() => document.getElementById(h)?.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" }));
+    return;
+  }
+  document.title = "Eikóna · Marketing e Comunicação";
+  if (SEG[h]) { V.innerHTML = vSeg(h); vistaAtual = h; }
+  else if (/^[FO][A-Za-z0-9]{3,24}$/.test(h)) { vistaAtual = h; vDiag(h); }
+  else { V.innerHTML = vInicio(); vistaAtual = "inicio"; }
   V.classList.remove("vista"); void V.offsetWidth; V.classList.add("vista");
   window.scrollTo(0, 0);
 }
+document.addEventListener("click", e => {
+  const f = e.target.closest(".filtro button");
+  if (f) { f.parentElement.querySelectorAll("button").forEach(b => b.setAttribute("aria-pressed", String(b === f))); document.querySelectorAll(".concs .conc").forEach(c => c.hidden = !!f.dataset.f && c.dataset.seg !== f.dataset.f); }
+});
+document.addEventListener("submit", e => {
+  if (e.target.id !== "formDiag") return; e.preventDefault();
+  const v = id => document.getElementById(id).value.trim(), emp = v("dEmp");
+  if (!emp) { document.getElementById("dEmp").focus(); return; }
+  const t = `Oi! Quero o diagnóstico grátis da Eikóna.\nEmpresa: ${emp}${v("dLink") ? `\nInstagram ou site: ${v("dLink")}` : ""}\nSegmento: ${v("dSeg")}${v("dBairro") ? `\nBairro: ${v("dBairro")}` : ""}`;
+  window.open(wa(t), "_blank", "noopener");
+});
 addEventListener("hashchange", rota);
 rota();
 })();
