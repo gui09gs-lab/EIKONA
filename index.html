@@ -146,6 +146,13 @@ p { margin: 0; }
 .contato { font-size: 14px; color: var(--sobre-escuro-suave); }
 .rodape { padding-block: 28px; font-size: 13px; color: var(--tinta-suave); border-top: 1px solid var(--veio); }
 .rodape .in { display: flex; gap: 8px 20px; flex-wrap: wrap; justify-content: space-between; }
+.concs { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap: 22px; }
+.conc { display: flex; flex-direction: column; gap: 6px; text-decoration: none; color: inherit; }
+.conc img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 4px; margin-bottom: 8px; transition: transform .3s; }
+.conc:hover img { transform: translateY(-3px); }
+.conc p { color: var(--tinta-suave); font-size: 15px; }
+.conc .ir { color: var(--egeu); font-weight: 500; font-size: 14px; }
+.conc-img img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 4px; box-shadow: 0 20px 44px #2a1d1633; }
 .carregando { padding: 80px 0; color: var(--tinta-suave); }
 @media (prefers-reduced-motion: no-preference) { .vista { animation: sobe .35s ease-out; } @keyframes sobe { from { opacity: .4; transform: translateY(6px); } } }
 </style>
@@ -189,6 +196,26 @@ const SEG = {
     entregas: [["Site institucional", "História, linhas de produto, diferenciais e contato comercial, com o Google configurado."], ["Catálogo digital", "Produtos por linha, filtros, lista de orçamento e envio pelo WhatsApp."], ["Fotografia de produto e de fábrica", "Imagens próprias no lugar de banco de imagens."]],
     cases: ["santerm", "alm", "flysy"] },
 };
+const CONC = [
+  ["tinta-crua", "Tinta Crua", "Estúdio de tatuagem", "comercio", "Portfólio por estilo e orçamento guiado", /tatua|piercing/i],
+  ["pulso-academia", "Pulso", "Academia", "saude", "Biblioteca de exercícios e ficha montada pelo aluno", /academia|pilates|personal|crossfit|fitness|funcional|yoga/i],
+  ["cantina-lucia", "Cantina Dona Lúcia", "Restaurante", "comercio", "Cardápio com pedido e reserva de mesa", /restaurante|cafeteria|pizz|lanchonete|bar\b/i],
+  ["mercado-bom-dia", "Mercado Bom Dia", "Mercado", "comercio", "Ofertas da semana com lista de compras", /mercado|empório|açougue|hortifr|adega|produtos naturais/i],
+  ["trigo-fino", "Trigo Fino", "Padaria", "comercio", "Encomendas de bolos, salgados e cestas", /padaria|confeitaria|doceria|chocolat|sorvet/i],
+  ["navalha-mooca", "Navalha", "Barbearia", "beleza", "Agendamento por barbeiro", /barbear/i],
+  ["studio-mecha", "Studio Mecha", "Salão de cabelo", "beleza", "Serviços, trabalhos e agenda com sinal", /cabel|salão de beleza/i],
+  ["lacca", "Lacca", "Esmalteria", "beleza", "Agenda, nail art e clube mensal", /unha|esmalt|sobrancel|cílio|podolog/i],
+  ["pele-leve", "Pele Leve", "Clínica de estética", "beleza", "Protocolos e avaliação gratuita", /estética|massag|spa|bronze/i],
+  ["trama", "Trama", "Loja de roupas", "comercio", "Catálogo com tamanhos e sacola", /roupa|calçad|boutique|cosmét|perfum|joalh|presente|moda/i],
+  ["torque-certo", "Torque Certo", "Oficina mecânica", "comercio", "Orçamento pelo modelo do carro", /oficina|bicicl|autopeç|pneu|mecân/i],
+  ["banho-bigode", "Banho & Bigode", "Pet shop", "comercio", "Banho e tosa por porte, leva e traz", /pet|banho e tosa|veterin/i],
+  ["sorrir-clinica", "Clínica Sorrir", "Dentista", "saude", "Especialidades e primeira consulta online", /dent|clínica|consult|fisio|psico|nutri|fono|médic/i],
+];
+const concDo = tipo => CONC.find(c => c[5].test(tipo || ""));
+function concCard(c) { return `<a class="conc" href="conceito/${c[0]}/"><img src="conceito/${c[0]}/img/p1.jpg" alt="" loading="lazy"><span class="rot">Projeto conceito · ${esc(c[2])}</span><h3>${esc(c[1])}</h3><p>${esc(c[4])}</p><span class="ir">Ver o site →</span></a>`; }
+function secConc(lista, titulo, sub) {
+  return `<section class="faixa gut"><div class="in"><div class="cab-sec"><span class="rot">Projetos conceito</span><h2>${titulo}<i>.</i></h2><p class="lead">${sub}</p></div><div class="concs">${lista.map(concCard).join("")}</div></div></section>`;
+}
 const CASES = {
   alm: { nome: "ALM Segurança Eletrônica", rot: "Distribuidora B2B", txt: "Distribuidora de produtos para CFTV. O site organiza a linha de produtos em catálogo: o cliente monta a lista e envia o pedido de orçamento pelo WhatsApp.", chips: ["Site", "Catálogo digital", "Orçamento pelo WhatsApp"] },
   sentinela: { nome: "Sentinela Segurança", rot: "Serviço local", txt: "Câmeras, alarmes e monitoramento para residências. Além do site, um simulador em que o cliente monta o projeto de câmeras antes de pedir a visita técnica.", chips: ["Site", "Simulador de câmeras", "Captação de orçamento"] },
@@ -240,7 +267,7 @@ function vInicio() {
     <div class="acoes"><a class="btn pri" href="${esc(wa("Oi! Vi a apresentação da Eikóna e quero conversar."))}" target="_blank" rel="noopener">Conversar pelo WhatsApp</a><a class="btn sec" href="#b2b">Ver cases</a></div></div></section>
     <section class="faixa areia gut"><div class="in"><div class="cab-sec"><span class="rot">Escolha o seu segmento</span><h2>O que fazemos para cada tipo de negócio<i>.</i></h2></div>
     <div class="segs">${Object.entries(SEG).map(([k, s]) => `<a class="seg" href="#${k}"><span class="rot">${esc(s.nome)}</span><h3>${esc(s.titulo)}</h3><p>${esc(s.lead.split(". ")[0])}.</p><span class="ir">Ver apresentação →</span></a>`).join("")}</div></div></section>
-    ${secCases(["sentinela", "alm", "santerm", "flysy"], "Alguns dos nossos trabalhos")}${secProcesso()}${secCTA("Vamos ver o que dá para melhorar no seu", "Oi! Vi a apresentação da Eikóna e quero conversar.")}`;
+    ${secCases(["sentinela", "alm", "santerm", "flysy"], "Alguns dos nossos trabalhos")}${secConc(CONC, "Como ficaria o site do seu negócio", "Sites completos de empresas fictícias, criados para mostrar o que fazemos em cada tipo de negócio. Abra, clique e teste: agenda, cardápio, portfólio e pedidos funcionam.")}${secProcesso()}${secCTA("Vamos ver o que dá para melhorar no seu", "Oi! Vi a apresentação da Eikóna e quero conversar.")}`;
 }
 function vSeg(k) {
   const s = SEG[k];
@@ -253,7 +280,7 @@ function vSeg(k) {
       <div><a class="btn sec" href="agenda/" target="_blank" rel="noopener">Testar a demonstração</a></div></div>${agenda(k === "saude" ? "Sua clínica" : "Seu estúdio", k === "saude" ? "clínica" : "esmalteria")}</div></section>` : ""}
     <section class="faixa gut ${s.agenda ? "areia" : ""}"><div class="in"><div class="cab-sec"><span class="rot">O que entregamos</span><h2>Do primeiro clique ao cliente na porta<i>.</i></h2></div>
       <div class="solucoes">${s.entregas.map(e => `<div class="sol"><h3>${esc(e[0])}</h3><p>${esc(e[1])}</p></div>`).join("")}</div></div></section>
-    ${secCases(s.cases, "Trabalhos que mostram como fazemos")}${secProcesso()}${secCTA("Vamos ver o que dá para melhorar no seu", `Oi! Vi a apresentação da Eikóna para ${s.nome.toLowerCase()} e quero conversar.`)}`;
+    ${secConc(CONC.filter(c => c[3] === k), "Sites de exemplo para " + s.nome.toLowerCase(), "Empresas fictícias, sites de verdade. Teste a agenda, o cardápio ou o pedido como se fosse um cliente.")}${secCases(s.cases, "Trabalhos que mostram como fazemos")}${secProcesso()}${secCTA("Vamos ver o que dá para melhorar no seu", `Oi! Vi a apresentação da Eikóna para ${s.nome.toLowerCase()} e quero conversar.`)}`;
 }
 function achados(p) {
   const A = [], tipo = (p.t || "").toLowerCase(), b = p.d;
@@ -293,6 +320,9 @@ async function vDiag(id) {
     ${temAg ? `<section class="faixa gut"><div class="in agenda-box"><div class="cab-sec" style="margin:0"><span class="rot">Como ficaria</span><h2>A agenda do ${esc(p.n)}, aberta 24 horas<i>.</i></h2>
       <p class="lead">Um exemplo com o nome de vocês: a cliente escolhe o serviço, o dia e o horário, paga o sinal por Pix e recebe a confirmação no WhatsApp.</p>
       <div><a class="btn sec" href="agenda/" target="_blank" rel="noopener">Testar a demonstração completa</a></div></div>${agenda(p.n, p.t)}</div></section>` : ""}
+    ${(() => { const c = concDo(p.t); return c ? `<section class="faixa gut ${temAg ? "" : "areia"}"><div class="in agenda-box"><div class="cab-sec" style="margin:0"><span class="rot">Como poderia ficar</span><h2>Um site pensado para ${esc((p.t || "o seu negócio").toLowerCase())}<i>.</i></h2>
+      <p class="lead">Criamos o ${esc(c[1])}, uma empresa fictícia do mesmo ramo, para mostrar como funcionaria: ${esc(c[4].toLowerCase())}. O do ${esc(p.n)} seria feito com a marca, as fotos e os serviços de vocês.</p>
+      <div><a class="btn pri" href="conceito/${c[0]}/" target="_blank" rel="noopener">Abrir o exemplo</a></div></div><a href="conceito/${c[0]}/" target="_blank" rel="noopener" class="conc-img"><img src="conceito/${c[0]}/img/p1.jpg" alt="Página inicial do site de exemplo ${esc(c[1])}"></a></div></section>` : ""; })()}
     <section class="faixa gut ${temAg ? "areia" : ""}"><div class="in"><div class="cab-sec"><span class="rot">O que faríamos</span><h2>Para resolver, nesta ordem<i>.</i></h2></div>
       <div class="solucoes">${solucoes(p).map(s => `<div class="sol"><h3>${esc(s[0])}</h3><p>${esc(s[1])}</p></div>`).join("")}</div></div></section>
     ${secCases(seg.cases, "Trabalhos parecidos que já fizemos")}${secCTA("Quer resolver isso", txt)}`;
