@@ -470,7 +470,8 @@ async function vDiag(id) {
   const V = document.getElementById("vista");
   V.innerHTML = `<div class="gut"><div class="in carregando">Carregando o diagnóstico…</div></div>`;
   let p = null;
-  try { const r = await fetch("d/" + id.slice(-2).toLowerCase() + ".json"); if (r.ok) p = (await r.json())[id]; } catch {}
+  if (id.startsWith("diag-")) { try { const b = id.slice(5).replace(/-/g, "+").replace(/_/g, "/"); p = JSON.parse(new TextDecoder().decode(Uint8Array.from(atob(b + "===".slice((b.length + 3) % 4)), c => c.charCodeAt(0)))); p.g = p.g || []; } catch { p = null; } }
+  else { try { const r = await fetch("d/" + id.slice(-2).toLowerCase() + ".json"); if (r.ok) p = (await r.json())[id]; } catch {} }
   if (location.hash.slice(1) !== id) return;
   if (!p) { V.innerHTML = `<section class="faixa gut"><div class="in cta"><span class="rot">Diagnóstico</span><h2>Não encontramos este diagnóstico<i>.</i></h2><p class="lead">O link pode estar incompleto. Veja o que fazemos para cada segmento ou fale direto com a gente.</p><div><a class="btn pri" href="#inicio">Ver apresentação</a></div></div></section>`; return; }
   const A = achados(p), seg = SEG[p.s] || SEG.comercio, temAg = p.g.includes("sem_agenda");
@@ -505,7 +506,7 @@ function rota() {
   }
   document.title = "Eikóna · Marketing e Comunicação";
   if (SEG[h]) { V.innerHTML = vSeg(h); vistaAtual = h; }
-  else if (/^[FO][A-Za-z0-9]{3,24}$/.test(h)) { vistaAtual = h; vDiag(h); }
+  else if (/^[FO][A-Za-z0-9]{3,24}$/.test(h) || /^diag-[A-Za-z0-9_-]{10,}$/.test(h)) { vistaAtual = h; vDiag(h); }
   else { V.innerHTML = vInicio(); vistaAtual = "inicio"; }
   V.classList.remove("vista"); void V.offsetWidth; V.classList.add("vista");
   window.scrollTo(0, 0);
